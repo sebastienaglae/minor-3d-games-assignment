@@ -1,0 +1,129 @@
+{
+    "characters": [
+        {
+            "id": 1,
+            "name": "Character Test",
+            "hitpoint": {
+                "max": 100,
+                "regenAmount": 20,
+                "regenDelay": 10
+            },
+            "combat": {
+                "attackDelay": 1.5,
+                "shootDamage": 25,
+                "shootRadius": 1,
+                "projectileId": 1,
+                "projectileSpeed": 15,
+                "projectileLifetime": 1.5
+            },
+            "movement": {
+                "speed": 5,
+                "dashSpeed": 30,
+                "acceleration": 10,
+                "deceleration": 10,
+                "dashDeceleration": 6
+            },
+            "animation": {
+                "idle": {
+                    "clip": "idle",
+                    "loop": true,
+                    "speed": 1
+                },
+                "walk": {
+                    "clip": "walk",
+                    "loop": true,
+                    "speed": 1.5
+                },
+                "attack": {
+                    "clip": "attack",
+                    "loop": false,
+                    "speed": 1
+                },
+                "die": {
+                    "clip": "die",
+                    "loop": false,
+                    "speed": 1
+                },
+                "damage": {
+                    "clip": "damage",
+                    "loop": false,
+                    "speed": 1
+                }
+            },
+            "render": {
+                "model": "models/characters/shriley.glb",
+                "scale": 1
+            }
+        }
+    ],
+    "monsters": [
+        {
+            "id": 1,
+            "name": "Slime Flower",
+            "hitpoint": {
+                "max": 50,
+                "regenAmount": 20,
+                "regenDelay": 60
+            },
+            "combat": {
+                "attackDelay": 1.5,
+                "shootDamage": 40,
+                "shootRadius": 1,
+                "projectileId": 1,
+                "projectileSpeed": 15,
+                "projectileLifetime": 1.5,
+                "alertInRadius": 7.5,
+                "alertOutRadius": 12,
+                "patrolRadius": 4
+            },
+            "movement": {
+                "speed": 2.5,
+                "dashSpeed": 30,
+                "acceleration": 10,
+                "deceleration": 10,
+                "dashDeceleration": 6
+            },
+            "animation": {
+                "idle": {
+                    "clip": "idle",
+                    "loop": true,
+                    "speed": 1
+                },
+                "walk": {
+                    "clip": "move",
+                    "loop": true,
+                    "speed": 1
+                },
+                "attack": {
+                    "clip": "attack",
+                    "loop": false,
+                    "speed": 1
+                },
+                "die": {
+                    "clip": "die",
+                    "loop": false,
+                    "speed": 1
+                },
+                "damage": {
+                    "clip": "damage",
+                    "loop": false,
+                    "speed": 1
+                }
+            },
+            "render": {
+                "model": "models/monsters/slime_flower.glb",
+                "scale": 0.9
+            }
+        }
+    ],
+    "projectiles": [
+        {
+            "id": 1,
+            "name": "Slime Ball",
+            "render": {
+                "model": "models/projectiles/fireball.glb",
+                "scale": 0.4
+            }
+        }
+    ]
+}
