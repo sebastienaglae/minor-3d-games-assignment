@@ -49,7 +49,8 @@ Fait par Sébastien Aglaé
 Le dashboard fait sous figma et exporté en utilisant le plugin figma to babylonjs
 https://www.figma.com/file/VDfB4SOgeenDlYsY7d6GvQ/GOW2023?type=design&node-id=0%3A1&t=iU5WZSCvmMBcvUF2-1
 
-
+## Monde
+Fait par Mike Chiappe
 ### Contrôles
 Z: Avancer
 S: Reculer
