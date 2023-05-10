@@ -14,7 +14,7 @@
                 "shootRadius": 1,
                 "projectileId": 1,
                 "projectileSpeed": 15,
-                "projectileLifetime": 1.5
+                "projectileLifetime": 1
             },
             "movement": {
                 "speed": 5,

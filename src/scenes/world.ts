@@ -149,11 +149,14 @@ export default class WorldScene extends Scene {
 
     public update() {
         this.updateLogic();
+        this._dialogue.update(this.getEngine().getDeltaTime());
         super.update();
     }
 
     private _createDialogue() {
         this._dialogue = new Dialogue();
+        this._dialogue.clear();
+        this._dialogue.addText
         this._dialogue.addText(
           "Hmm... Cette planète est étrange. Je devrais aller voir ce qu'il se passe.",
           5000
@@ -167,7 +170,8 @@ export default class WorldScene extends Scene {
     private switchToSpace() {
         const engine = this.getEngine();
         const scene = new SpaceScene(engine);
-        this.dispose();
-        scene.init();
+        scene.init().then(() => {
+            this.dispose();
+        });
     }
 }

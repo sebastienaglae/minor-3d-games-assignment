@@ -49,4 +49,9 @@ export class Dialogue {
       }
     }
   }
+
+  public clear() {
+    this._texts = [];
+    this._textTime = [];
+  }
 }
