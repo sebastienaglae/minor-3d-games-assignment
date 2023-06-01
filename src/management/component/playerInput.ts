@@ -63,7 +63,7 @@ export default class PlayerInput implements ISceneComponent {
             const input = movementComponent.input;
             input.axis.x = axisX;
             input.axis.y = axisY;
-            input.dash = input.dash || InputManager.isKeyDown("Shift", true);
+            input.dash = input.dash || InputManager.isKeyDown("shift", true);
         }
 
         if (this._attackDirection !== null && !playingCinematic) {

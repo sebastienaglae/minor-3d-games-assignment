@@ -6,10 +6,11 @@ export default class InputManager {
 
     public static init(scene : Scene) : void {
         scene.onKeyboardObservable.add((kbInfo) => {
+            const key = kbInfo.event.key.toLowerCase();
             if (kbInfo.type === KeyboardEventTypes.KEYDOWN) {
-                InputManager._keysDown[kbInfo.event.key] = true;
+                InputManager._keysDown[key] = true;
             } else {
-                InputManager._keysDown[kbInfo.event.key] = false;
+                InputManager._keysDown[key] = false;
             }
         });
     }

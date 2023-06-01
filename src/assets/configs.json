@@ -21,7 +21,8 @@
                 "dashSpeed": 50,
                 "acceleration": 45,
                 "deceleration": 45,
-                "dashDeceleration": 5
+                "dashDeceleration": 5,
+                "audioId": 10
             },
             "animation": {
                 "idle": {
@@ -89,7 +90,8 @@
                 "dashSpeed": 45,
                 "acceleration": 15,
                 "deceleration": 10,
-                "dashDeceleration": 6
+                "dashDeceleration": 6,
+                "audioId": 0
             },
             "animation": {
                 "idle": {
@@ -159,7 +161,8 @@
                 "dashSpeed": 45,
                 "acceleration": 15,
                 "deceleration": 10,
-                "dashDeceleration": 6
+                "dashDeceleration": 6,
+                "audioId": 10
             },
             "animation": {
                 "idle": {
@@ -230,7 +233,8 @@
                 "dashSpeed": 45,
                 "acceleration": 15,
                 "deceleration": 10,
-                "dashDeceleration": 6
+                "dashDeceleration": 6,
+                "audioId": 10
             },
             "animation": {
                 "idle": {
@@ -1082,11 +1086,51 @@
         {
             "id": 3,
             "name": "Battle_boss",
+            "type": 2,
+            "location": 0,
+            "volume": 0.5,
+            "loop": true,
+            "audio": "audios/battle_boss.mp3",
+            "area": []
+        },
+        {
+            "id": 4,
+            "name": "Ambiant_2",
+            "type": 0,
+            "location": 0,
+            "volume": 0.5,
+            "loop": true,
+            "audio": "audios/ambiant2.mp3",
+            "area": []
+        },
+        {
+            "id": 5,
+            "name": "Battle2",
             "type": 1,
             "location": 0,
             "volume": 0.5,
             "loop": true,
-            "audio": "audios/battle.mp3",
+            "audio": "audios/battle2.mp3",
+            "area": []
+        },
+        {
+            "id": 6,
+            "name": "Battle_boss2",
+            "type": 2,
+            "location": 0,
+            "volume": 0.5,
+            "loop": true,
+            "audio": "audios/battle_boss2.mp3",
+            "area": []
+        },
+        {
+            "id": 10,
+            "name": "Walk_Character",
+            "type": 3,
+            "location": 0,
+            "volume": 0.5,
+            "loop": false,
+            "audio": "audios/walk_character.mp3",
             "area": []
         }
     ],
@@ -1096,7 +1140,8 @@
             "dashSpeed": 30,
             "acceleration": 10,
             "deceleration": 10,
-            "dashDeceleration": 6
+            "dashDeceleration": 6,
+            "audioId": 10
         },
         "npcStartWaitingPlayerDistance": 15,
         "npcStartChasingPlayerDistance": 10

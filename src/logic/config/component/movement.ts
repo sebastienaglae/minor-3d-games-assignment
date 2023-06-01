@@ -4,4 +4,5 @@ export default interface MovementConfig {
     acceleration: number;
     deceleration: number;
     dashDeceleration: number;
+    audioId: number;
 }

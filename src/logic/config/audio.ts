@@ -12,7 +12,8 @@ export default interface AudioConfig extends Config {
 export enum AudioType {
     AMBIENT = 0,
     BATTLE = 1,
-    BATTLE_BOSS
+    BATTLE_BOSS = 2,
+    EFFECT = 3,
 }
 
 export enum AudioLocation {

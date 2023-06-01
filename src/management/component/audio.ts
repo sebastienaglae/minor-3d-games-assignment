@@ -2,12 +2,15 @@ import ISceneComponent from "./interface";
 import {Sound} from "@babylonjs/core";
 import AudioConfig, {AudioType} from "../../logic/config/audio";
 import Level from "../../logic/level/level";
-import {GameObjectType} from "../../logic/gameobject/gameObject";
+import GameObject, {GameObjectType} from "../../logic/gameobject/gameObject";
 import MonsterCombatComponent from "../../logic/gameobject/component/monsterCombat";
 import MonsterConfig from "../../logic/config/gameobject/monster";
 import ConfigTable from "../../logic/config/table";
 import Scene from "../../scenes/scene";
 import Trigger from "../../logic/gameobject/trigger";
+import CombatComponent from "../../logic/gameobject/component/combat";
+import MovementComponent from "../../logic/gameobject/component/movement";
+import AIMovementComponent from "../../logic/gameobject/component/aiMovement";
 
 export default class AudioComponent implements ISceneComponent {
     private readonly _level: Level;
@@ -28,6 +31,8 @@ export default class AudioComponent implements ISceneComponent {
                 autoplay: false,
             });
         }
+
+        this._level.gameObjectManager.onNewObject.add(this.register.bind(this));
     }
 
     update(): void {
@@ -119,5 +124,59 @@ export default class AudioComponent implements ISceneComponent {
         return audioConfigs[Math.floor(Math.random() * audioConfigs.length)];
     }
 
+    register(gameObject: GameObject): void {
+        const playSoundState: Map<number, PlaySoundState> = new Map<number, PlaySoundState>();
 
+        const playSound = (audioId: number) => {
+            let state = playSoundState[audioId];
+            if (!state) {
+                const audioConfig = ConfigTable.getAudio(audioId);
+                if (audioConfig) {
+                    const sound = this._audios.get(audioConfig);
+                    if (sound) {
+                        playSoundState[audioId] = state = new PlaySoundState(sound);
+                    }
+                }
+            }
+            if (state) {
+                const timeSinceLastSound = Date.now() - state.startTime;
+                if (timeSinceLastSound < 500) {
+                    return;
+                }
+                state.sound.play();
+                state.startTime = Date.now();
+            }
+        }
+
+        const combatComponent =
+            gameObject.findComponent(CombatComponent) ??
+            gameObject.findComponent(MonsterCombatComponent);
+        if (combatComponent) {
+            combatComponent.onAttack.add(() => {
+                // TODO
+            });
+        }
+        const movementComponent =
+            gameObject.findComponent(MovementComponent) ??
+            gameObject.findComponent(AIMovementComponent);
+        if (movementComponent) {
+            movementComponent.onMove.add(speedNormalized => {
+                if (speedNormalized > 0.1) {
+                    playSound(movementComponent.config.audioId);
+                }
+            });
+        }
+
+
+    }
+}
+
+class PlaySoundState {
+    sound: Sound;
+    startTime: number;
+
+    constructor(sound: Sound) {
+        this.sound = sound;
+        this.startTime = 0;
+    }
 }

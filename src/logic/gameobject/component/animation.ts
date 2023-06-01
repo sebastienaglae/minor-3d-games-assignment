@@ -23,7 +23,7 @@ export default class AnimationComponent extends Component {
         let isAttacking = false;
         const movementComponent = this.parent.findComponent(MovementComponent) ?? this.parent.findComponent(AIMovementComponent);
         if (movementComponent) {
-            movementComponent.onMove = (rate) => {
+            movementComponent.onMove.add(rate => {
                 if (rate < 0.25) {
                     if (!idleCondition && (!isAttacking || !this._currentGroup.isPlaying)) {
                         idleCondition = true;
@@ -35,7 +35,7 @@ export default class AnimationComponent extends Component {
                     isAttacking = false;
                     this.play("walk", rate);
                 }
-            };
+            });
         }
 
         const combatComponent = this.parent.findComponent(CombatComponent) ?? this.parent.findComponent(MonsterCombatComponent);

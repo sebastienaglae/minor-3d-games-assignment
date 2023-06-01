@@ -6,11 +6,12 @@ import GameObject, { GameObjectType } from "./gameObject";
 import Monster from "./monster";
 import Trigger from "./trigger";
 import Npc from "./npc";
+import {EventList, EventListT} from "../util/eventList";
 
 export default class GameObjectManager {
     // declare 2 events: onNewObject and onRemoveObject
-    public onNewObject: (object: GameObject) => void = () => {};
-    public onRemoveObject: (object: GameObject) => void = () => {};
+    public onNewObject: EventListT<GameObject> = new EventListT<GameObject>();
+    public onRemoveObject: EventListT<GameObject> = new EventListT<GameObject>();
 
     private readonly _level: Level;
     private readonly _objects: Map<number, GameObject> = new Map();
@@ -38,7 +39,7 @@ export default class GameObjectManager {
             throw new Error(`Object with id ${object.id} already exists.`);
         }
         this._objects.set(object.id, object);
-        this.onNewObject(object);
+        this.onNewObject.trigger(object);
     }
 
     public removeObject(object: GameObject): void {
@@ -47,7 +48,7 @@ export default class GameObjectManager {
         }
         object.destroy();
         this._objects.delete(object.id);
-        this.onRemoveObject(object);
+        this.onRemoveObject.trigger(object);
     }
 
     public getObject(id: number): GameObject {

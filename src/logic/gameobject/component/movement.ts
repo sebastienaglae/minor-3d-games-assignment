@@ -3,11 +3,12 @@ import MovementConfig from "../../config/component/movement";
 import Time from "../../time/time";
 import GameObject from "../gameObject";
 import Component, { ComponentType } from "./component";
+import {EventList, EventListT} from "../../util/eventList";
 
 class MovementComponent extends Component {
     private static readonly DASH_TIME: number = Time.getTicks(1.5);
 
-    public onMove: (speedRate: number) => void = () => { };
+    public onMove: EventListT<number> = new EventListT<number>();
 
     protected _config: MovementConfig;
     protected _velocity: Vector2;
@@ -28,6 +29,10 @@ class MovementComponent extends Component {
 
     private get canDash(): boolean {
         return this._dashTimer <= 0;
+    }
+
+    public get config(): MovementConfig {
+        return this._config;
     }
 
     public update(): void {
@@ -99,7 +104,7 @@ class MovementComponent extends Component {
 
         this._parent.position = newPosition;
 
-        this.onMove(this._velocity.length() / this._config.speed);
+        this.onMove.trigger(this._velocity.length() / this._config.speed);
     }
     
     public updateDirection() {

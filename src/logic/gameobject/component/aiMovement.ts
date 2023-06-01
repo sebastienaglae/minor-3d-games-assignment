@@ -4,8 +4,6 @@ import { ComponentType } from "./component";
 import MovementComponent from "./movement";
 
 export default class AIMovementComponent extends MovementComponent {
-    public onMove: (speedRate: number) => void = () => { };
-
     private _path: Vector2[] = [];
     private _pathIndex: number = 0;
     private _pause: boolean = false;
@@ -44,7 +42,7 @@ export default class AIMovementComponent extends MovementComponent {
         }
 
         if (this._pause) {
-            this.onMove(0);
+            this.onMove.trigger(0);
             return;
         }
 
@@ -53,9 +51,9 @@ export default class AIMovementComponent extends MovementComponent {
         this.updateDirection();
 
         if (this._path.length === 0) {
-            this.onMove(0);
+            this.onMove.trigger(0);
         } else {
-            this.onMove(1);
+            this.onMove.trigger(1);
         }
     }
 

@@ -48,6 +48,10 @@ export default class ConfigTable {
         return configsJson.npcs.find((npc: NpcConfig) => npc.id === id);
     }
 
+    public static getAudio(id: number): AudioConfig {
+        return configsJson.audios.find((audio: AudioConfig) => audio.id === id);
+    }
+
     public static getProjectile(id: number): ProjectileConfig {
         return configsJson.projectiles.find((projectile: ProjectileConfig) => projectile.id === id);
     }
