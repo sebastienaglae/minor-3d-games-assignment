@@ -35,6 +35,10 @@ class MovementComponent extends Component {
         return this._config;
     }
 
+    public set config(value: MovementConfig) {
+        this._config = value;
+    }
+
     public update(): void {
         if (!this.parent.alive) {
             return;

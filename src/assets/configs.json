@@ -337,6 +337,46 @@
             ],
             "objects": [
                 {
+                    "id": 600005,
+                    "name": "NPC.5",
+                    "position": {
+                        "x": 138.2,
+                        "y": 313.5
+                    },
+                    "direction": -5.58793545E-08,
+                    "type": 5,
+                    "params": {
+                        "config": 2,
+                        "patrolPoints": [
+                            {
+                                "x": 138.2,
+                                "y": 313.5
+                            },
+                            {
+                                "x": 208.2,
+                                "y": 313.5
+                            },
+                            {
+                                "x": 219.2,
+                                "y": 298.5
+                            },
+                            {
+                                "x": 219.2,
+                                "y": 253.5
+                            },
+                            {
+                                "x": 208.2,
+                                "y": 243.5
+                            },
+                            {
+                                "x": 88.2,
+                                "y": 243.5
+                            }
+                        ],
+                        "patrolFreezeTimeAtEnd": 0
+                    }
+                },
+                {
                     "id": 200001,
                     "name": "Monster.1",
                     "position": {
@@ -642,12 +682,12 @@
                 },
                 {
                     "id": 600004,
-                    "name": "NPC.3 (1)",
+                    "name": "NPC.4",
                     "position": {
                         "x": 159.3,
                         "y": 294.0
                     },
-                    "direction": 1.57079625,
+                    "direction": -1.57079637,
                     "type": 5,
                     "params": {
                         "config": 2
@@ -660,56 +700,64 @@
                     "position": {
                         "x": 202.9,
                         "y": 189.8
-                    }
+                    },
+                    "direction": -1.57079637
                 },
                 {
                     "id": 6,
                     "position": {
                         "x": 205.2,
                         "y": 254.21
-                    }
+                    },
+                    "direction": -1.57079637
                 },
                 {
                     "id": 4,
                     "position": {
                         "x": 83.98,
                         "y": 70.47
-                    }
+                    },
+                    "direction": -1.57079637
                 },
                 {
                     "id": 7,
                     "position": {
                         "x": 205.2,
                         "y": 248.29
-                    }
+                    },
+                    "direction": -1.57079637
                 },
                 {
                     "id": 5,
                     "position": {
                         "x": 94.4,
                         "y": 50.5
-                    }
+                    },
+                    "direction": -1.57079637
                 },
                 {
                     "id": 8,
                     "position": {
                         "x": 205.01,
                         "y": 241.22
-                    }
+                    },
+                    "direction": -1.57079637
                 },
                 {
                     "id": 2,
                     "position": {
                         "x": 78.9,
                         "y": 154.2
-                    }
+                    },
+                    "direction": -1.57079637
                 },
                 {
                     "id": 1,
                     "position": {
                         "x": 84.2,
                         "y": 83.0
-                    }
+                    },
+                    "direction": -1.57079637
                 }
             ],
             "id": 1,
@@ -1142,6 +1190,41 @@
             "deceleration": 10,
             "dashDeceleration": 6,
             "audioId": 10
+        },
+        "npcPatrolMovement": {
+            "speed": 3.5,
+            "dashSpeed": 30,
+            "acceleration": 10,
+            "deceleration": 10,
+            "dashDeceleration": 6,
+            "audioId": 10
+        },
+        "chest": {
+            "id": 1,
+            "name": "Chest",
+            "render": {
+                "model": "models/chests/chest.glb",
+                "scale": 1,
+                "rotation": 0
+            },
+            "openingAnimation": {
+                "clip": "Close to Open",
+                "loop": false,
+                "speed": 1,
+                "alt": []
+            },
+            "openedAnimation": {
+                "clip": "Open",
+                "loop": true,
+                "speed": 1,
+                "alt": []
+            },
+            "closedAnimation": {
+                "clip": "Close",
+                "loop": true,
+                "speed": 1,
+                "alt": []
+            }
         },
         "npcStartWaitingPlayerDistance": 15,
         "npcStartChasingPlayerDistance": 10

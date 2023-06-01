@@ -104,7 +104,7 @@ export default class GameObjectManager {
             case GameObjectType.Monster:
                 return new Monster(ConfigTable.getMonster(configId), this._level);
             case GameObjectType.Chest:
-                return new Chest({ id: 1, name: "Dummy_Chest" }, this._level);
+                return new Chest(ConfigTable.globals.chest, this._level);
             case GameObjectType.Trigger:
                 return new Trigger({ id: 2, name: "Dummy_Trigger" }, this._level);
             case GameObjectType.Npc:

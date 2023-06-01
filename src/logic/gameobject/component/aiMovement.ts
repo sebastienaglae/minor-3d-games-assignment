@@ -90,4 +90,8 @@ export default class AIMovementComponent extends MovementComponent {
     public get paused() {
         return this._pause;
     }
+
+    public get moving() {
+        return this._path.length > 0;
+    }
 }

@@ -89,7 +89,7 @@ export default class Mission {
                 }
 
                 for (const movePointId of this._config.npcMovePointIds) {
-                    this._npcMovePoints.push(level.getPoint(movePointId));
+                    this._npcMovePoints.push(level.getPoint(movePointId).position);
                 }
 
                 break;
@@ -99,7 +99,8 @@ export default class Mission {
         if (this._config.tpPoint != 0) {
             const tpPoint = level.getPoint(this._config.tpPoint);
             const player = level.gameObjectManager.player;
-            player.position = tpPoint.clone();
+            player.position = tpPoint.position.clone();
+            player.direction = tpPoint.direction;
         }
 
         if (this._progress >= this._requiredProgress) {
@@ -111,6 +112,7 @@ export default class Mission {
         console.log(`Mission ${this._config.id} is started`);
 
         if (this._config.type === MissionType.FOLLOW_NPC) {
+            this._npc.attachedToMission = true;
             this.moveNpcToNextPoint();
         }
     }
@@ -127,6 +129,9 @@ export default class Mission {
     public complete(): void {
         this._progress = this._requiredProgress;
         this._completed = true;
+        if (this._npc) {
+            this._npc.attachedToMission = false;
+        }
 
         console.log(`Mission ${this._config.id} is completed`);
     }
