@@ -1,10 +1,13 @@
-import { AbstractMesh, AnimationGroup, ISceneLoaderAsyncResult, SceneLoader } from "@babylonjs/core";
+import { ISceneLoaderAsyncResult, Scene, SceneLoader } from "@babylonjs/core";
 
 export default class MeshProvider {
     public static instance = new MeshProvider();
+    public static activeScene: Scene;
 
     private _queue: MeshAsyncHandle[] = [];
     private _nextId: number = 0;
+
+    private _pendingPromises: Promise<void>[] = [];
 
     public load(path: string): MeshAsyncHandle {
         const handle = new MeshAsyncHandle(this._nextId++, path);
@@ -19,11 +22,22 @@ export default class MeshProvider {
         console.log(`Loading ${this._queue.length} meshes...`);
 
         for (const handle of this._queue) {
-            SceneLoader.ImportMeshAsync(null, "assets/", handle.path).then((result) => {
+            const promise = SceneLoader.ImportMeshAsync(null, "assets/" + handle.path, null, MeshProvider.activeScene).then((result) => {
                 handle.result = result;
             });
+            this._pendingPromises.push(promise.then(() => {
+                this._pendingPromises.splice(this._pendingPromises.indexOf(promise), 1);
+            }));
         }
         this._queue = [];
+    }
+
+    public executeAsync(): Promise<void> {
+        this.executeQueue();
+        
+        return Promise.all(this._pendingPromises).then(() => {
+            console.log("All meshes loaded");
+        });
     }
 }
 

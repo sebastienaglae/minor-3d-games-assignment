@@ -1,6 +1,7 @@
 const path = require("path")
 const CopyPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const webpack = require('webpack');
 
 module.exports = {
   entry: "./src/index.ts",
@@ -25,6 +26,9 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "!!handlebars-loader!src/index.hbs",
+    }),
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
     }),
   ],
 }

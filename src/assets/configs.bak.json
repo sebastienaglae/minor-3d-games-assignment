@@ -1,0 +1,422 @@
+{
+    "characters": [
+        {
+            "id": 1,
+            "name": "Character Test",
+            "hitpoint": {
+                "max": 100,
+                "regenAmount": 20,
+                "regenDelay": 10
+            },
+            "combat": {
+                "attackDelay": 1.5,
+                "shootDamage": 25,
+                "shootRadius": 1,
+                "projectileId": 1,
+                "projectileSpeed": 15,
+                "projectileLifetime": 1
+            },
+            "movement": {
+                "speed": 7.5,
+                "dashSpeed": 30,
+                "acceleration": 10,
+                "deceleration": 10,
+                "dashDeceleration": 6
+            },
+            "animation": {
+                "idle": {
+                    "clip": "idle",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "walk": {
+                    "clip": "walk",
+                    "loop": true,
+                    "speed": 1.5,
+                    "alt": []
+                },
+                "attack": {
+                    "clip": "attack",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "die": {
+                    "clip": "die",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "damage": {
+                    "clip": "damage",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                }
+            },
+            "render": {
+                "model": "models/characters/shriley.glb",
+                "scale": 3,
+                "rotation": 0
+            }
+        }
+    ],
+    "monsters": [
+        {
+            "id": 1,
+            "name": "Wolf_White",
+            "hitpoint": {
+                "max": 50,
+                "regenAmount": 20,
+                "regenDelay": 60
+            },
+            "combat": {
+                "attackDelay": 1.5,
+                "shootDamage": 40,
+                "shootRadius": 4,
+
+                "projectileId": 0,
+                "projectileSpeed": 0,
+                "projectileLifetime": 0,
+
+                "alertInRadius": 25,
+                "alertOutRadius": 35,
+                "patrolRadius": 12.5
+            },
+            "movement": {
+                "speed": 9,
+                "dashSpeed": 45,
+                "acceleration": 15,
+                "deceleration": 10,
+                "dashDeceleration": 6
+            },
+            "animation": {
+                "idle": {
+                    "clip": "Idle",
+                    "loop": true,
+                    "speed": 0.75,
+                    "alt": [
+                        "Look Around",
+                        "Howl"
+                    ]
+                },
+                "walk": {
+                    "clip": "Run Forward WO Root",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "attack": {
+                    "clip": "Pound Attack W Root",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "die": {
+                    "clip": "Die",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "damage": {
+                    "clip": "Take Damage",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                }
+            },
+            "render": {
+                "model": "models/monsters/wolf_white.glb",
+                "scale": 0.8,
+                "rotation": -90
+            }
+        }
+    ],
+    "projectiles": [
+        {
+            "id": 1,
+            "name": "Slime Ball",
+            "render": {
+                "model": "models/projectiles/fireball.glb",
+                "scale": 0.6,
+                "rotation": 0
+            }
+        }
+    ],
+    "scenes": [
+        {
+            "width": 1685,
+            "height": 1730,
+            "precision": 5,
+            "useBakedTilemap": true,
+            "models": [
+                {
+                    "path": "Terrain_0_0-20230529_-_194720.glb",
+                    "position": {
+                        "x": -79.3,
+                        "y": 0.0,
+                        "z": -70.3
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                {
+                    "path": "scene.glb",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                }
+            ],
+            "objects": [
+                {
+                    "id": 600001,
+                    "name": "NPC.1",
+                    "position": {
+                        "x": 84.22,
+                        "y": 82.92999
+                    },
+                    "direction": 0.8229945,
+                    "type": 5,
+                    "params": {
+                        "config": 1
+                    }
+                },
+                {
+                    "id": 200001,
+                    "name": "Monster.1",
+                    "position": {
+                        "x": 81.1000061,
+                        "y": 75.19
+                    },
+                    "direction": -1.33786261,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": true
+                    }
+                },
+                {
+                    "id": 400001,
+                    "name": "Chest.1",
+                    "position": {
+                        "x": 117.28,
+                        "y": 128.76
+                    },
+                    "direction": 0.9976811,
+                    "type": 3,
+                    "params": {
+                        "drops": []
+                    }
+                },
+                {
+                    "id": 200002,
+                    "name": "Monster.2",
+                    "position": {
+                        "x": 90.92,
+                        "y": 77.8500061
+                    },
+                    "direction": 3.7778697,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": true
+                    }
+                },
+                {
+                    "id": 200003,
+                    "name": "Monster.3",
+                    "position": {
+                        "x": 91.54999,
+                        "y": 87.67999
+                    },
+                    "direction": 2.56423783,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": true
+                    }
+                },
+                {
+                    "id": 100001,
+                    "name": "Character.1",
+                    "position": {
+                        "x": 54.6,
+                        "y": 23.0
+                    },
+                    "direction": -1.57079637,
+                    "type": 0,
+                    "params": {
+                        "config": 1
+                    }
+                },
+                {
+                    "id": 500001,
+                    "name": "Trigger.Quest_KillMonsterTutorial.1",
+                    "position": {
+                        "x": 93.0,
+                        "y": 54.409996
+                    },
+                    "direction": -1.57079637,
+                    "type": 4,
+                    "params": {
+                        "area": [
+                            43.0,
+                            46.409996,
+                            93.0,
+                            54.409996
+                        ]
+                    }
+                }
+            ],
+            "points": [
+                {
+                    "id": 5,
+                    "position": {
+                        "x": 94.4,
+                        "y": 51.9
+                    }
+                },
+                {
+                    "id": 4,
+                    "position": {
+                        "x": 83.98,
+                        "y": 70.47
+                    }
+                },
+                {
+                    "id": 3,
+                    "position": {
+                        "x": 128.6,
+                        "y": 174.6
+                    }
+                },
+                {
+                    "id": 2,
+                    "position": {
+                        "x": 78.9,
+                        "y": 154.2
+                    }
+                },
+                {
+                    "id": 1,
+                    "position": {
+                        "x": 84.2,
+                        "y": 83.0
+                    }
+                }
+            ],
+            "id": 1,
+            "name": "Map_Desert",
+            "hideFlags": 0
+        }
+    ],
+    "missions": [
+        {
+            "id": 6,
+            "name": "Intro_FollowToVillage",
+            "sceneId": 1,
+            "dependencyIds": [ ],
+            "groupId": 1,
+            "type": 5,
+            "dialogs": [
+
+            ],
+            "tpPoint": 0,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "Suivez l'homme jusqu'au village",
+
+            "cinematic": "",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 600001,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": [ 1, 2, 3 ]
+        }
+    ],
+    "npcs": [
+        {
+            "id": 1,
+            "name": "Nekoma's Chief",
+            "render": {
+                "model": "models/npcs/nekoma_chief.glb",
+                "scale": 1,
+                "rotation": 0
+            },
+            "animation": {
+                "idle": {
+                    "clip": "Idle",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "walk": {
+                    "clip": "Walk",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "run": {
+                    "clip": "Run",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "attack": {
+                    "clip": "Attack",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "die": {
+                    "clip": "Die",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "damage": {
+                    "clip": "damage",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                }
+            }
+        }
+    ],
+    "globals": {
+        "npcMovement": {
+            "speed": 7.75,
+            "dashSpeed": 30,
+            "acceleration": 10,
+            "deceleration": 10,
+            "dashDeceleration": 6
+        },
+        "npcStartWaitingPlayerDistance": 15,
+        "npcStartChasingPlayerDistance": 10
+    }
+}

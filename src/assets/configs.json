@@ -4,62 +4,68 @@
             "id": 1,
             "name": "Character Test",
             "hitpoint": {
-                "max": 100,
+                "max": 120,
                 "regenAmount": 20,
                 "regenDelay": 10
             },
             "combat": {
                 "attackDelay": 1.5,
                 "shootDamage": 25,
-                "shootRadius": 1,
+                "shootRadius": 3,
                 "projectileId": 1,
-                "projectileSpeed": 15,
+                "projectileSpeed": 25,
                 "projectileLifetime": 1
             },
             "movement": {
-                "speed": 5,
-                "dashSpeed": 30,
-                "acceleration": 10,
-                "deceleration": 10,
-                "dashDeceleration": 6
+                "speed": 7.5,
+                "dashSpeed": 50,
+                "acceleration": 45,
+                "deceleration": 45,
+                "dashDeceleration": 5
             },
             "animation": {
                 "idle": {
-                    "clip": "idle",
+                    "clip": "Idle",
                     "loop": true,
-                    "speed": 1
+                    "speed": 1,
+                    "alt": []
                 },
                 "walk": {
-                    "clip": "walk",
+                    "clip": "Walk",
                     "loop": true,
-                    "speed": 1.5
+                    "speed": 1,
+                    "alt": []
                 },
                 "attack": {
-                    "clip": "attack",
+                    "clip": "Hit",
                     "loop": false,
-                    "speed": 1
+                    "speed": 1,
+                    "alt": []
                 },
                 "die": {
-                    "clip": "die",
+                    "clip": "Die",
                     "loop": false,
-                    "speed": 1
+                    "speed": 1,
+                    "alt": []
                 },
                 "damage": {
-                    "clip": "damage",
+                    "clip": "",
                     "loop": false,
-                    "speed": 1
+                    "speed": 1,
+                    "alt": []
                 }
             },
             "render": {
-                "model": "models/characters/shriley.glb",
-                "scale": 1
+                "model": "models/characters/new_char.glb",
+                "scale": 0.75,
+                "rotation": 0
             }
         }
     ],
     "monsters": [
         {
             "id": 1,
-            "name": "Slime Flower",
+            "name": "Wolf_White",
             "hitpoint": {
                 "max": 50,
                 "regenAmount": 20,
@@ -68,52 +74,206 @@
             "combat": {
                 "attackDelay": 1.5,
                 "shootDamage": 40,
-                "shootRadius": 1,
-                "projectileId": 1,
-                "projectileSpeed": 15,
-                "projectileLifetime": 1.5,
-                "alertInRadius": 7.5,
-                "alertOutRadius": 12,
-                "patrolRadius": 4
+                "shootRadius": 4,
+
+                "projectileId": 0,
+                "projectileSpeed": 0,
+                "projectileLifetime": 0,
+
+                "alertInRadius": 20,
+                "alertOutRadius": 30,
+                "patrolRadius": 12.5
             },
             "movement": {
-                "speed": 2.5,
-                "dashSpeed": 30,
-                "acceleration": 10,
+                "speed": 9,
+                "dashSpeed": 45,
+                "acceleration": 15,
                 "deceleration": 10,
                 "dashDeceleration": 6
             },
             "animation": {
                 "idle": {
-                    "clip": "idle",
+                    "clip": "Idle",
                     "loop": true,
-                    "speed": 1
+                    "speed": 0.75,
+                    "alt": [
+                        "Look Around",
+                        "Howl"
+                    ]
                 },
                 "walk": {
-                    "clip": "move",
+                    "clip": "Run Forward WO Root",
                     "loop": true,
-                    "speed": 1
+                    "speed": 1,
+                    "alt": []
                 },
                 "attack": {
-                    "clip": "attack",
+                    "clip": "Pound Attack W Root",
                     "loop": false,
-                    "speed": 1
+                    "speed": 1,
+                    "alt": []
                 },
                 "die": {
-                    "clip": "die",
+                    "clip": "Die",
                     "loop": false,
-                    "speed": 1
+                    "speed": 1,
+                    "alt": []
                 },
                 "damage": {
-                    "clip": "damage",
+                    "clip": "Take Damage",
                     "loop": false,
-                    "speed": 1
+                    "speed": 1,
+                    "alt": []
                 }
             },
             "render": {
-                "model": "models/monsters/slime_flower.glb",
-                "scale": 0.9
-            }
+                "model": "models/monsters/wolf_white.glb",
+                "scale": 0.8,
+                "rotation": -90
+            },
+            "isBoss": false
+        },
+        {
+            "id": 2,
+            "name": "Golem",
+            "hitpoint": {
+                "max": 500,
+                "regenAmount": 20,
+                "regenDelay": 60
+            },
+            "combat": {
+                "attackDelay": 4,
+                "shootDamage": 40,
+                "shootRadius": 4,
+
+                "projectileId": 0,
+                "projectileSpeed": 0,
+                "projectileLifetime": 0,
+
+                "alertInRadius": 25,
+                "alertOutRadius": 35,
+                "patrolRadius": 12.5
+            },
+            "movement": {
+                "speed": 4,
+                "dashSpeed": 45,
+                "acceleration": 15,
+                "deceleration": 10,
+                "dashDeceleration": 6
+            },
+            "animation": {
+                "idle": {
+                    "clip": "Idle",
+                    "loop": true,
+                    "speed": 0.75,
+                    "alt": [
+
+                    ]
+                },
+                "walk": {
+                    "clip": "Walk Forward WO Root",
+                    "loop": true,
+                    "speed": 0.5,
+                    "alt": []
+                },
+                "attack": {
+                    "clip": "Hit Ground Attack",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": [
+                        "Punch Attack"
+                    ]
+                },
+                "die": {
+                    "clip": "Die",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "damage": {
+                    "clip": "Take Damage",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                }
+            },
+            "render": {
+                "model": "models/monsters/golem.glb",
+                "scale": 0.8,
+                "rotation": -90
+            },
+            "isBoss": true
+        },
+        {
+            "id": 3,
+            "name": "Magma",
+            "hitpoint": {
+                "max": 200,
+                "regenAmount": 20,
+                "regenDelay": 60
+            },
+            "combat": {
+                "attackDelay": 5,
+                "shootDamage": 40,
+                "shootRadius": 4,
+
+                "projectileId": 0,
+                "projectileSpeed": 0,
+                "projectileLifetime": 0,
+
+                "alertInRadius": 25,
+                "alertOutRadius": 35,
+                "patrolRadius": 12.5
+            },
+            "movement": {
+                "speed": 4,
+                "dashSpeed": 45,
+                "acceleration": 15,
+                "deceleration": 10,
+                "dashDeceleration": 6
+            },
+            "animation": {
+                "idle": {
+                    "clip": "Idle",
+                    "loop": true,
+                    "speed": 0.75,
+                    "alt": [
+
+                    ]
+                },
+                "walk": {
+                    "clip": "Walk Forward WO Root",
+                    "loop": true,
+                    "speed": 0.5,
+                    "alt": []
+                },
+                "attack": {
+                    "clip": "Hit Ground Attack",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": [
+                        "Punch Attack"
+                    ]
+                },
+                "die": {
+                    "clip": "Die",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "damage": {
+                    "clip": "Take Damage",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                }
+            },
+            "render": {
+                "model": "models/monsters/magma.glb",
+                "scale": 0.8,
+                "rotation": -90
+            },
+            "isBoss": false
         }
     ],
     "projectiles": [
@@ -122,8 +282,823 @@
             "name": "Slime Ball",
             "render": {
                 "model": "models/projectiles/fireball.glb",
-                "scale": 0.4
+                "scale": 0.6,
+                "rotation": 0
             }
         }
-    ]
+    ],
+    "scenes": [
+        {
+            "width": 1732,
+            "height": 1768,
+            "precision": 4,
+            "useBakedTilemap": true,
+            "models": [
+                {
+                    "path": "Terrain_0_0-20230529_-_194720.glb",
+                    "position": {
+                        "x": -79.3,
+                        "y": 0.0,
+                        "z": -70.3
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                },
+                {
+                    "path": "scene.glb",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "scale": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    }
+                }
+            ],
+            "objects": [
+                {
+                    "id": 200001,
+                    "name": "Monster.1",
+                    "position": {
+                        "x": 81.1000061,
+                        "y": 75.19
+                    },
+                    "direction": -1.33786261,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": true
+                    }
+                },
+                {
+                    "id": 600001,
+                    "name": "NPC.1",
+                    "position": {
+                        "x": 84.22,
+                        "y": 82.92999
+                    },
+                    "direction": 0.8229945,
+                    "type": 5,
+                    "params": {
+                        "config": 1
+                    }
+                },
+                {
+                    "id": 500003,
+                    "name": "Trigger.InCity_2",
+                    "position": {
+                        "x": 180.7,
+                        "y": 305.7
+                    },
+                    "direction": -1.57079637,
+                    "type": 4,
+                    "params": {
+                        "area": [
+                            105.7,
+                            263.2,
+                            255.7,
+                            348.2
+                        ],
+                        "autoReset": true
+                    }
+                },
+                {
+                    "id": 400001,
+                    "name": "Chest.1",
+                    "position": {
+                        "x": 103.549995,
+                        "y": 114.289993
+                    },
+                    "direction": 0.6876505,
+                    "type": 3,
+                    "params": {
+                        "drops": []
+                    }
+                },
+                {
+                    "id": 600002,
+                    "name": "NPC.2",
+                    "position": {
+                        "x": 70.7999954,
+                        "y": 246.64
+                    },
+                    "direction": 0.7516404,
+                    "type": 5,
+                    "params": {
+                        "config": 2
+                    }
+                },
+                {
+                    "id": 500002,
+                    "name": "Trigger.InCity_1",
+                    "position": {
+                        "x": 155.099991,
+                        "y": 249.1
+                    },
+                    "direction": -1.57079637,
+                    "type": 4,
+                    "params": {
+                        "area": [
+                            60.09999,
+                            206.6,
+                            250.099991,
+                            291.6
+                        ],
+                        "autoReset": true
+                    }
+                },
+                {
+                    "id": 200002,
+                    "name": "Monster.2",
+                    "position": {
+                        "x": 90.92,
+                        "y": 77.8500061
+                    },
+                    "direction": 3.7778697,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": true
+                    }
+                },
+                {
+                    "id": 200013,
+                    "name": "Monster.13",
+                    "position": {
+                        "x": 172.4,
+                        "y": 15.1999969
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 2,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 200007,
+                    "name": "Monster.7",
+                    "position": {
+                        "x": 139.8,
+                        "y": 388.3
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 200006,
+                    "name": "Monster.6",
+                    "position": {
+                        "x": 123.899994,
+                        "y": 388.3
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 200003,
+                    "name": "Monster.3",
+                    "position": {
+                        "x": 91.54999,
+                        "y": 87.67999
+                    },
+                    "direction": 2.56423783,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": true
+                    }
+                },
+                {
+                    "id": 200008,
+                    "name": "Monster.8",
+                    "position": {
+                        "x": 283.8,
+                        "y": 385.099976
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 200009,
+                    "name": "Monster.9",
+                    "position": {
+                        "x": 225.799988,
+                        "y": 103.899994
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 3,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 200010,
+                    "name": "Monster.10",
+                    "position": {
+                        "x": 14.6999969,
+                        "y": 213.7
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 3,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 200004,
+                    "name": "Monster.4",
+                    "position": {
+                        "x": 268.4,
+                        "y": 35.1999969
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 2,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 600003,
+                    "name": "NPC.3",
+                    "position": {
+                        "x": 159.3,
+                        "y": 260.0
+                    },
+                    "direction": 1.57079625,
+                    "type": 5,
+                    "params": {
+                        "config": 2
+                    }
+                },
+                {
+                    "id": 100001,
+                    "name": "Character.1",
+                    "position": {
+                        "x": 54.6,
+                        "y": 23.0
+                    },
+                    "direction": -1.57079637,
+                    "type": 0,
+                    "params": {
+                        "config": 1
+                    }
+                },
+                {
+                    "id": 200011,
+                    "name": "Monster.11",
+                    "position": {
+                        "x": 273.599976,
+                        "y": 175.9
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 3,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 200005,
+                    "name": "Monster.5",
+                    "position": {
+                        "x": 15.5999985,
+                        "y": 388.3
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 2,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 500001,
+                    "name": "Trigger.Quest_KillMonsterTutorial.1",
+                    "position": {
+                        "x": 79.3999939,
+                        "y": 82.0
+                    },
+                    "direction": -1.57079637,
+                    "type": 4,
+                    "params": {
+                        "area": [
+                            44.3999939,
+                            47.0,
+                            114.399994,
+                            117.0
+                        ],
+                        "autoReset": false
+                    }
+                },
+                {
+                    "id": 200012,
+                    "name": "Monster.12",
+                    "position": {
+                        "x": 7.699997,
+                        "y": 290.4
+                    },
+                    "direction": -1.57079637,
+                    "type": 1,
+                    "params": {
+                        "config": 1,
+                        "freezePatrol": false
+                    }
+                },
+                {
+                    "id": 600004,
+                    "name": "NPC.3 (1)",
+                    "position": {
+                        "x": 159.3,
+                        "y": 294.0
+                    },
+                    "direction": 1.57079625,
+                    "type": 5,
+                    "params": {
+                        "config": 2
+                    }
+                }
+            ],
+            "points": [
+                {
+                    "id": 3,
+                    "position": {
+                        "x": 202.9,
+                        "y": 189.8
+                    }
+                },
+                {
+                    "id": 6,
+                    "position": {
+                        "x": 205.2,
+                        "y": 254.21
+                    }
+                },
+                {
+                    "id": 4,
+                    "position": {
+                        "x": 83.98,
+                        "y": 70.47
+                    }
+                },
+                {
+                    "id": 7,
+                    "position": {
+                        "x": 205.2,
+                        "y": 248.29
+                    }
+                },
+                {
+                    "id": 5,
+                    "position": {
+                        "x": 94.4,
+                        "y": 50.5
+                    }
+                },
+                {
+                    "id": 8,
+                    "position": {
+                        "x": 205.01,
+                        "y": 241.22
+                    }
+                },
+                {
+                    "id": 2,
+                    "position": {
+                        "x": 78.9,
+                        "y": 154.2
+                    }
+                },
+                {
+                    "id": 1,
+                    "position": {
+                        "x": 84.2,
+                        "y": 83.0
+                    }
+                }
+            ],
+            "id": 1,
+            "name": "Map_Desert",
+            "hideFlags": 0
+        }
+    ],
+    "missions": [
+        {
+            "id": 10000,
+            "name": "Intro_Radio",
+            "sceneId": 0,
+            "dependencyIds": [ ],
+            "groupId": 1,
+            "type": 0,
+            "dialogs": [],
+            "tpPoint": 0,
+
+            "title": "",
+            "description": "",
+
+            "cinematic": "",
+            "video": "Game_Intro_Radio.mp4",
+
+            "triggerIds": [ ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 0,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": []
+        },
+        {
+            "id": 1,
+            "name": "Intro_Landing",
+            "sceneId": 1,
+            "dependencyIds": [ ],
+            "groupId": 1,
+            "type": 0,
+            "dialogs": [],
+            "tpPoint": 0,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "A l'atterissage",
+
+            "cinematic": "Cinematic_Intro",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 0,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": []
+        },
+        {
+            "id": 2,
+            "name": "Intro_GoTo1stFight",
+            "sceneId": 1,
+            "dependencyIds": [ 1 ],
+            "groupId": 1,
+            "type": 1,
+            "dialogs": [
+                { "text": "Pfiou, ce voyage spatial a été mouvementé. Je crois que le village des Nekoma est proche d'ici.", "delay": 0 },
+                { "text": "Je devrais faire attention au vent, il est assez fort sur cette hémisphère.", "delay": 0 }
+            ],
+            "tpPoint": 0,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "Trouvez un moyen de rejoindre le village des Nekoma.",
+
+            "cinematic": "",
+            "video": "",
+
+            "triggerIds": [ 500001 ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 0,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": []
+        },
+        {
+            "id": 3,
+            "name": "Intro_KillMonster_Intro",
+            "sceneId": 1,
+            "dependencyIds": [ 2 ],
+            "groupId": 1,
+            "type": 0,
+            "dialogs": [
+                { "text": "(Ces chiens ressemblent à ceux de Astria Corp...)", "delay": 0 },
+                { "text": "(Je devrais les tuer avant qu'ils ne s'en prennent à cet homme.)", "delay": 0 }
+            ],
+            "tpPoint": 5,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "",
+
+            "cinematic": "Cinematic_1stAttack_Intro",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 0,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": []
+        },
+        {
+            "id": 4,
+            "name": "Intro_KillMonster_Battle",
+            "sceneId": 1,
+            "dependencyIds": [ 3 ],
+            "groupId": 1,
+            "type": 2,
+            "dialogs": [],
+            "tpPoint": 0,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "Tuez les loups qui menacent l'homme (%progress% / %total%)<br/>Cliquez sur eux pour les attaquer.",
+
+            "cinematic": "",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [ 200001, 200002, 200003 ],
+            "monsterCount": 0,
+            "npcId": 0,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": []
+        },
+        {
+            "id": 5,
+            "name": "Intro_KillMonster_End",
+            "sceneId": 1,
+            "dependencyIds": [ 4 ],
+            "groupId": 1,
+            "type": 0,
+            "dialogs": [
+                { "text": "Merci de m'avoir sauvé. Je suis le chef du village des Nekoma.", "delay": 0 },
+                { "text": "D'après votre tenue, j'imagine que vous êtes envoyé par Eco Earth pour nous aider.", "delay": 0 },
+                { "text": "Nous sommes attaqués par des créatures de Astria Corp. Elles veulent nous voler notre eau.", "delay": 0 },
+                { "text": "Nous avons besoin de votre aide pour les repousser.", "delay": 0 },
+                { "text": "Je vous invite à me suivre au village.", "delay": 0 }
+            ],
+            "tpPoint": 4,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "",
+
+            "cinematic": "Cinematic_1stAttack_End",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 0,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": []
+        },
+        {
+            "id": 6,
+            "name": "Intro_FollowToVillage",
+            "sceneId": 1,
+            "dependencyIds": [ 5 ],
+            "groupId": 1,
+            "type": 5,
+            "dialogs": [
+
+            ],
+            "tpPoint": 0,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "Suivez l'homme jusqu'au village",
+
+            "cinematic": "",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 600001,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": [ 1, 2, 3, 6, 7 ]
+        },
+        {
+            "id": 7,
+            "name": "Intro_NpcTalk",
+            "sceneId": 1,
+            "dependencyIds": [ 6 ],
+            "groupId": 1,
+            "type": 0,
+            "dialogs": [
+                { "text": "Chef: Nous avons besoin de vous pour affronter les créatures de Astro Corp", "delay": 0 },
+                { "text": "Chef: Au total, nous en avons dénombrer 10 autours de la ville. Je vous demande de les tuer.", "delay": 0 },
+                { "text": "Vous: Rassemblez les habitants dans un endroit sûr, je m'occupe des créatures.", "delay": 0 },
+                { "text": "Chef: Bien, merci à vous.", "delay": 0 }
+            ],
+            "tpPoint": 8,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "",
+
+            "cinematic": "Cinematic_ChiefTalk_Intro",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 600001,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": [ 1, 2, 3, 6, 7 ]
+        },
+        {
+            "id": 8,
+            "name": "Intro_KillMonster_Battle",
+            "sceneId": 1,
+            "dependencyIds": [ 7 ],
+            "groupId": 1,
+            "type": 3,
+            "dialogs": [],
+            "tpPoint": 0,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "Tuez les monstres autours de la ville (%progress% / %total%)",
+
+            "cinematic": "",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [ ],
+            "monsterCount": 10,
+            "npcId": 0,
+            "npcFirstDialog": "",
+            "npcGenericDialog": "",
+            "npcMovePointIds": []
+        }
+    ],
+    "npcs": [
+        {
+            "id": 1,
+            "name": "Nekoma's Chief",
+            "render": {
+                "model": "models/npcs/nekoma_chief.glb",
+                "scale": 1,
+                "rotation": 0
+            },
+            "animation": {
+                "idle": {
+                    "clip": "Idle",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "walk": {
+                    "clip": "Walk",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "run": {
+                    "clip": "Run",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "attack": {
+                    "clip": "Attack",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "die": {
+                    "clip": "Die",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "damage": {
+                    "clip": "damage",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                }
+            }
+        },
+        {
+            "id": 2,
+            "name": "Trader",
+            "render": {
+                "model": "models/npcs/trader.glb",
+                "scale": 1,
+                "rotation": 0
+            },
+            "animation": {
+                "idle": {
+                    "clip": "Idle",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "walk": {
+                    "clip": "",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "run": {
+                    "clip": "",
+                    "loop": true,
+                    "speed": 1,
+                    "alt": []
+                },
+                "attack": {
+                    "clip": "",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "die": {
+                    "clip": "",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                },
+                "damage": {
+                    "clip": "",
+                    "loop": false,
+                    "speed": 1,
+                    "alt": []
+                }
+            }
+        }
+    ],
+    "audios": [
+        {
+            "id": 1,
+            "name": "Ambiant_1",
+            "type": 0,
+            "location": 0,
+            "volume": 0.5,
+            "loop": true,
+            "audio": "audios/ambiant.mp3",
+            "area": []
+        },
+        {
+            "id": 2,
+            "name": "Ambiant_2",
+            "type": 0,
+            "location": 1,
+            "volume": 0.5,
+            "loop": true,
+            "audio": "audios/ambiant_city.mp3",
+            "area": [
+                500002, 500003
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Battle",
+            "type": 1,
+            "location": 0,
+            "volume": 0.5,
+            "loop": true,
+            "audio": "audios/battle.mp3",
+            "area": []
+        },
+        {
+            "id": 3,
+            "name": "Battle_boss",
+            "type": 1,
+            "location": 0,
+            "volume": 0.5,
+            "loop": true,
+            "audio": "audios/battle.mp3",
+            "area": []
+        }
+    ],
+    "globals": {
+        "npcMovement": {
+            "speed": 7.75,
+            "dashSpeed": 30,
+            "acceleration": 10,
+            "deceleration": 10,
+            "dashDeceleration": 6
+        },
+        "npcStartWaitingPlayerDistance": 15,
+        "npcStartChasingPlayerDistance": 10
+    }
 }

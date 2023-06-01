@@ -1,8 +1,11 @@
+import Chest from "./chest";
 import ConfigTable from "../config/table";
 import Level from "../level/level";
 import Character from "./character";
 import GameObject, { GameObjectType } from "./gameObject";
 import Monster from "./monster";
+import Trigger from "./trigger";
+import Npc from "./npc";
 
 export default class GameObjectManager {
     // declare 2 events: onNewObject and onRemoveObject
@@ -63,6 +66,8 @@ export default class GameObjectManager {
         this.destroy();
 
         for (let i = 0; i < data.length; i++) {
+            console.log(data[i]);
+
             const object = data[i];
             const type = object.type;
             const configId = object.config;
@@ -97,9 +102,24 @@ export default class GameObjectManager {
                 return new Character(ConfigTable.getCharacter(configId), this._level);
             case GameObjectType.Monster:
                 return new Monster(ConfigTable.getMonster(configId), this._level);
-
+            case GameObjectType.Chest:
+                return new Chest({ id: 1, name: "Dummy_Chest" }, this._level);
+            case GameObjectType.Trigger:
+                return new Trigger({ id: 2, name: "Dummy_Trigger" }, this._level);
+            case GameObjectType.Npc:
+                return new Npc(ConfigTable.getNpc(configId), this._level);
             default:
                 throw new Error(`Unknown game object type: ${type}`);
         }
+    }
+
+    public get player(): Character {
+        const objects = this._objects.values();
+        for (const object of objects) {
+            if (object.type == GameObjectType.Character) {
+                return object as Character;
+            }
+        }
+        return null;
     }
 }

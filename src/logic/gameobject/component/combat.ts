@@ -5,8 +5,11 @@ import GameObject from "../gameObject";
 import Projectile from "../projectile";
 import Component, { ComponentType } from "./component";
 import HitpointComponent from "./hitpoint";
+import {EventList} from "../../util/eventList";
 
 export default class CombatComponent extends Component {
+    public onAttack: EventList = new EventList();
+
     protected _config: CombatConfig;
     private _attackCooldown: number = 0;
 
@@ -48,13 +51,15 @@ export default class CombatComponent extends Component {
                 const distanceY = position.y - from.y;
                 const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
                 if (distance <= this._config.shootRadius) {
-                    const hitpointComponent = gameObject.getComponent(HitpointComponent);
+                    const hitpointComponent = gameObject.findComponent(HitpointComponent);
                     if (hitpointComponent && hitpointComponent.team != this.team) {
                         hitpointComponent.hit(this._config.shootDamage);
                     }
                 }
             }             
         }
+
+        this.onAttack.trigger();
     }
 
     public update(): void {

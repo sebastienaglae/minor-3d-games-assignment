@@ -2,11 +2,12 @@ import HitpointConfig from "../../config/component/hitpoint";
 import Time from "../../time/time";
 import GameObject, { GameObjectType } from "../gameObject";
 import Component, { ComponentType } from "./component";
+import {EventList, EventListT} from "../../util/eventList";
 
 export default class HitpointComponent extends Component {
-    public onDamage: (amount: number) => void;
-    public onHeal: (amount: number) => void;
-    public onDeath: () => void;
+    public onDamage: EventListT<number> = new EventListT<number>();
+    public onHeal: EventListT<number> = new EventListT<number>();
+    public onDeath: EventList = new EventList();
 
     private _config: HitpointConfig;
     private _team: number;
@@ -20,10 +21,6 @@ export default class HitpointComponent extends Component {
         this._hitpoint = config.max;
         this._regenDelay = 0;
         this._team = team;
-
-        this.onDamage = (amount: number) => { };
-        this.onHeal = (amount: number) => { };
-        this.onDeath = () => { };
     }
 
     public get type(): ComponentType {
@@ -38,6 +35,10 @@ export default class HitpointComponent extends Component {
         return this._hitpoint;
     }
 
+    public get maxHitpoint(): number {
+        return this._config.max;
+    }
+
     public get team(): number {
         return this._team;
     }
@@ -47,7 +48,7 @@ export default class HitpointComponent extends Component {
             return;
         }
         this._hitpoint = Math.min(this._hitpoint + amount, this._config.max);
-        this.onHeal(amount);
+        this.onHeal.trigger(amount);
     }
 
     public hit(amount: number): void {
@@ -57,11 +58,11 @@ export default class HitpointComponent extends Component {
 
         this._hitpoint = Math.max(this._hitpoint - amount, 0);
         this._regenDelay = Time.getTicks(this._config.regenDelay);
-        this.onDamage(amount);
+        this.onDamage.trigger(amount);
         
         if (!this.alive) {
             this._deathDespawnDelay = Time.getTicks(0.75);
-            this.onDeath();
+            this.onDeath.trigger();
         }
     }
 

@@ -47,6 +47,8 @@ export class Planet {
       scene
     );
     planet.material = ToonMaterial.createMaterial(this._texture);
+    planet.material.freeze();
+
 
     this._planetMesh = planet;
   }
@@ -80,5 +82,9 @@ export class Planet {
 
   public getName() {
     return this._name;
+  }
+
+  public getAtmosphereRadius() {
+    return this._diameter / 2 + this._diameter * 0.1;
   }
 }

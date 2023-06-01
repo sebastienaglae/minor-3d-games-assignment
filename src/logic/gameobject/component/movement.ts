@@ -5,11 +5,14 @@ import GameObject from "../gameObject";
 import Component, { ComponentType } from "./component";
 
 class MovementComponent extends Component {
+    private static readonly DASH_TIME: number = Time.getTicks(1.5);
+
     public onMove: (speedRate: number) => void = () => { };
 
     protected _config: MovementConfig;
     protected _velocity: Vector2;
     private _dashing: boolean = false;
+    private _dashTimer: number = 0;
 
     public input = new MovementInput();
 
@@ -21,6 +24,10 @@ class MovementComponent extends Component {
 
     public get type(): ComponentType {
         return ComponentType.Movement;
+    }
+
+    private get canDash(): boolean {
+        return this._dashTimer <= 0;
     }
 
     public update(): void {
@@ -44,8 +51,11 @@ class MovementComponent extends Component {
             axis.normalize();
         }
 
-        if (input.dash && !this._dashing) {
+        --this._dashTimer;
+
+        if (input.dash && !this._dashing && this.canDash) {
             this._dashing = true;
+            this._dashTimer = MovementComponent.DASH_TIME;
             input.dash = false;
 
             if (axis.lengthSquared() === 0) {
@@ -97,7 +107,7 @@ class MovementComponent extends Component {
         if (velocity.lengthSquared() > 1) {
             velocity = velocity.clone().normalize();
         }
-        if (velocity.lengthSquared() > 0) {
+        if (velocity.lengthSquared() > 0.001) {
             let direction = Math.atan2(velocity.y, velocity.x);
             this.parent.direction = direction + Math.PI / 2;
         }

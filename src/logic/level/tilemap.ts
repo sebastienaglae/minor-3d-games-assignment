@@ -2,10 +2,6 @@ import { Vector2 } from "@babylonjs/core";
 import PathFinder from "../util/pathfinder";
 
 export default class TileMap {
-    private static readonly TILE_BITS_SIZE = 4;
-    private static readonly TILE_PER_BYTE = 8 / TileMap.TILE_BITS_SIZE;
-    private static readonly TILE_STATE_MASK = (1 << TileMap.TILE_BITS_SIZE) - 1;
-
     private _resolution: number;
     private _size: Vector2;
     private _subSize: Vector2;
@@ -16,7 +12,7 @@ export default class TileMap {
     public constructor(size: Vector2, resolution: number) {
         this._size = size;
         this._subSize = new Vector2(size.x * resolution, size.y * resolution);
-        this._states = new Uint8Array(Math.ceil(this._subSize.x * this._subSize.y / TileMap.TILE_PER_BYTE));
+        this._states = new Uint8Array(this._subSize.x * this._subSize.y);
         this._resolution = resolution;
 
         this._pathFinder = new PathFinder(this);
@@ -24,6 +20,10 @@ export default class TileMap {
 
     public get size(): Vector2 {
         return this._size;
+    }
+
+    public get subSize(): Vector2 {
+        return this._subSize;
     }
 
     public get resolution(): number {
@@ -57,11 +57,7 @@ export default class TileMap {
             return TileState.Object;
         }
 
-        const arrayIndex = x + y * this._subSize.x;
-        const byteIndex = Math.floor(arrayIndex / TileMap.TILE_PER_BYTE);
-        const bitIndex = (arrayIndex % TileMap.TILE_PER_BYTE) * TileMap.TILE_BITS_SIZE;
-
-        return (this._states[byteIndex] >> bitIndex) & TileMap.TILE_STATE_MASK;
+        return this._states[x * this._subSize.y + y];
     }
 
     public setSubTile(x: number, y: number, state: TileState) {
@@ -69,11 +65,19 @@ export default class TileMap {
             throw new Error("Position out of bounds");
         }
 
-        const arrayIndex = x + y * this._subSize.x;
-        const byteIndex = Math.floor(arrayIndex / TileMap.TILE_PER_BYTE);
-        const bitIndex = (arrayIndex % TileMap.TILE_PER_BYTE) * TileMap.TILE_BITS_SIZE;
-        
-        this._states[byteIndex] = (this._states[byteIndex] & ~(TileMap.TILE_STATE_MASK << bitIndex)) | (state << bitIndex);
+        this._states[x * this._subSize.y + y] = state;
+    }
+
+    public setSubTiles(buffer: Uint8Array, sizeX: number, sizeY: number, precision: number) {
+        if (sizeX !== this._subSize.x || sizeY !== this._subSize.y) {
+            throw new Error("Invalid size");
+        }
+        if (precision !== this._resolution) {
+            throw new Error("Invalid precision");
+        }
+
+        this._states = buffer;
+        this._pathFinder.updateGrid();
     }
 
     public updatePathFinder(): void {

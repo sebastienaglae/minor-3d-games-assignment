@@ -10,10 +10,7 @@ export class FireEffect extends ParticleSystem {
   constructor(scene: Scene, emitter: any) {
     super("fire", 2000, scene);
 
-    this.particleTexture = new Texture(
-      "assets/space/effects/flare.png",
-      scene
-    );
+    this.particleTexture = new Texture("assets/space/effects/flare.png", scene);
 
     this.emitter = emitter;
     this.minEmitBox = new Vector3(-0.15, -0.15, -0.15);

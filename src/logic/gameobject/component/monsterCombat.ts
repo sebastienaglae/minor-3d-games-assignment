@@ -4,7 +4,8 @@ import GameObject from "../gameObject";
 import CombatComponent from "./combat";
 import Component, { ComponentType } from "./component";
 import Time from "../../time/time";
-import MonsterMovementComponent from "./monsterMovement";
+import AIMovementComponent from "./aiMovement";
+import Monster from "../monster";
 
 export default class MonsterCombatComponent extends CombatComponent {
     private static readonly AlertCheckTimer: number = Time.getTicks(1);
@@ -25,6 +26,7 @@ export default class MonsterCombatComponent extends CombatComponent {
     private _currentTarget: Nullable<GameObject>;
     private _currentTargetPosition: Vector2;
 
+    private _freezeTime: number;
 
     public constructor(parent: GameObject, config: MonsterCombatConfig = null) {
         super(parent, config);
@@ -37,10 +39,27 @@ export default class MonsterCombatComponent extends CombatComponent {
         return ComponentType.MonsterCombat;
     }
 
+    public freezePatrol() {
+        this._patrolPoints = [new Vector2(this.parent.position.x, this.parent.position.y)];
+        this._patrolPointIndex = 0;
+    }
+
+    public get isFrozenPatrol(): boolean {
+        return this._patrolPoints != null && this._patrolPoints.length == 1;
+    }
+
+    public get isAlerted(): boolean {
+        return this._alerted;
+    }
+
     public update(): void {
         super.update();
 
         if (!this.parent.alive) {
+            return;
+        }
+
+        if (--this._freezeTime > 0) {
             return;
         }
 
@@ -84,17 +103,23 @@ export default class MonsterCombatComponent extends CombatComponent {
         const from = this._parent.position;
         const to = target.position;
         const distanceSquared = Vector2.DistanceSquared(from, to);
-        const attackRange = this.attackRange;
+        const attackRange = this.attackRange * 1.25;
         if (distanceSquared <= attackRange * attackRange) {
             const direction = to.subtract(from);
             const directionAngle = Math.atan2(direction.y, direction.x);
 
             this.attack(directionAngle);
+            this._freezeTime = Time.getTicks(1);
         }
     }
 
     private checkPatrol(): void {
         if (this._alerted) {
+            return;
+        }
+
+        const enemy = this.findEnemyInRadius(25);
+        if (enemy == null) {
             return;
         }
 
@@ -116,7 +141,7 @@ export default class MonsterCombatComponent extends CombatComponent {
         if (this._patrolPointIndex === -1) {
             return;
         }
-        const movementComponent = this.parent.getComponent(MonsterMovementComponent);
+        const movementComponent = this.parent.getComponent(AIMovementComponent);
         movementComponent.moveTo(this._patrolPoints[this._patrolPointIndex]);
     }
 
@@ -127,7 +152,7 @@ export default class MonsterCombatComponent extends CombatComponent {
         this._currentTarget = target;
         this._currentTargetPosition = target?.position.clone();
 
-        const movementComponent = this.parent.getComponent(MonsterMovementComponent);
+        const movementComponent = this.parent.getComponent(AIMovementComponent);
         if (target != null) {
             movementComponent.moveTo(this.findBestAttackPosition());
         } else {
@@ -167,7 +192,7 @@ export default class MonsterCombatComponent extends CombatComponent {
         let closestEnemy = null;
         let closestDistance = Number.MAX_VALUE;
         for (const enemy of enemies) {
-            if (enemy.alive && enemy.team !== this._parent.team) {
+            if (enemy.alive && enemy.team !== this._parent.team && enemy.team !== -1) {
                 const distance = Vector2.DistanceSquared(enemy.position, this._parent.position);
                 if (distance <= radiusSquared) {
                     if (distance < closestDistance) {

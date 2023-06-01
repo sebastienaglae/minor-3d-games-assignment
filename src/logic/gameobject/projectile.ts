@@ -53,6 +53,7 @@ export default class Projectile extends GameObject {
         to.x += Math.cos(this._direction) * this._speed * Time.TICK_DELTA_TIME;
         to.y += Math.sin(this._direction) * this._speed * Time.TICK_DELTA_TIME;
 
+        let hasCollision = false;
         const gameObjects = this.gameObjectManager.objects.values();
         for (const gameObject of gameObjects) {
             const position = gameObject.position;
@@ -60,9 +61,13 @@ export default class Projectile extends GameObject {
                 const hitpointComponent = gameObject.findComponent(HitpointComponent);
                 if (hitpointComponent !== null && hitpointComponent.team != this._team) {
                     hitpointComponent.hit(this._damage);
-                    this.gameObjectManager.removeObject(this);
+                    hasCollision = true;
                 }
             }
+        }
+
+        if (hasCollision) {
+            this.gameObjectManager.removeObject(this);
         }
     
         this.position = to;

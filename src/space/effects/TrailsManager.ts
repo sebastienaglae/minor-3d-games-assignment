@@ -68,4 +68,16 @@ export class TrailsManager {
       trail.gravity = new Vector3(0, 0, this._maxGravity * rate);
     });
   }
+
+  public stop() {
+    this.trails.forEach((trail) => {
+      trail.stop();
+    });
+  }
+
+  public dispose() {
+    this.trails.forEach((trail) => {
+      trail.dispose();
+    });
+  }
 }

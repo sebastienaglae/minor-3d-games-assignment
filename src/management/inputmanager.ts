@@ -25,4 +25,10 @@ export default class InputManager {
     public static onKeyDown(key : string) : void {
         InputManager._keysDown[key] = true;
     }
+
+    public static clear() : void {
+        for (const key in InputManager._keysDown) {
+            InputManager._keysDown[key] = false;
+        }
+    }
 }

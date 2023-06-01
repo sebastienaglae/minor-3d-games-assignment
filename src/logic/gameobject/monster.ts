@@ -3,7 +3,7 @@ import Level from "../level/level";
 import AnimationComponent from "./component/animation";
 import HitpointComponent from "./component/hitpoint";
 import MonsterCombatComponent from "./component/monsterCombat";
-import MonsterMovementComponent from "./component/monsterMovement";
+import AIMovementComponent from "./component/aiMovement";
 import RenderComponent from "./component/render";
 import GameObject, { GameObjectType } from "./gameObject";
 
@@ -15,7 +15,7 @@ export default class Monster extends GameObject {
         this._direction = 0;
 
         this.addComponent(new HitpointComponent(this, config.hitpoint));
-        this.addComponent(new MonsterMovementComponent(this, config.movement));
+        this.addComponent(new AIMovementComponent(this, config.movement));
         this.addComponent(new MonsterCombatComponent(this, config.combat));
         this.addComponent(new RenderComponent(this, config.render));
         this.addComponent(new AnimationComponent(this, config.animation));
@@ -32,11 +32,15 @@ export default class Monster extends GameObject {
     public load(data: any) {
         super.load(data);
         this._direction = data.direction;
+        if (data.freezePatrol) {
+            this.findComponent(MonsterCombatComponent).freezePatrol();
+        }
     }
 
     public save(): any {
         let data = super.save();
         data.direction = this._direction;
+        data.freezePatrol = this.findComponent(MonsterCombatComponent).isFrozenPatrol;
         return data;
     }
 

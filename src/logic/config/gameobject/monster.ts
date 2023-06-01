@@ -11,4 +11,5 @@ export default interface MonsterConfig extends Config {
     render: RenderConfig;
     animation: AnimationConfig;
     hitpoint: HitpointConfig;
+    isBoss: boolean;
 }

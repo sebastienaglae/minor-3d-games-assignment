@@ -9,12 +9,44 @@
     <title>Nakama Project</title>
 
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://cdn.babylonjs.com/cannon.js"></script>
+    {{! <script src="https://cdn.babylonjs.com/cannon.js"></script> }}
+    {{! <script src="https://cdn.babylonjs.com/Oimo.js"></script> }}
+    <script src="https://cdn.babylonjs.com/ammo.js"></script>
+    {{! <script src="https://cdn.babylonjs.com/havok/HavokPhysics_umd.js"></script> }}
     <link rel="stylesheet" href="assets/space/css/space.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
   </head>
 
-  <body>
-    <canvas id="view" style="width: 100%; height: 100%;"></canvas>
+  <body style="background-color: black; color: black">
+    <div id="game-overlay" style="display: none">
+      <div id="hint-text"></div>
+      <div id="monster-count">Monstres à tuer : 10</div>
+      <div id="player-info">
+        <img id="player-image" src="player.png" alt="Joueur" />
+        <div id="health-bar"></div>
+        <div id="quest-title">Titre de la quête</div>
+        <div id="quest-description">Description de la quête</div>
+      </div>
+      <div id="dialogues" style="display: none">Dialogues du jeu</div>
+    </div>
+    <div id="video-overlay">
+      <video id="video" src="./assets/videos/intro.mp4"></video>
+      <button id="skip-button" class="button">Cliquer pour passer</button>
+      <button id="start-button" class="button">Cliquer pour commencer</button>
+    </div>
+    <canvas
+      id="view"
+      style="width: 100%; height: 100%; color: black; background-color: black"
+    ></canvas>
   </body>
-
+  <script>
+    const skipButton = document.getElementById("skip-button"); const
+    startpButton = document.getElementById("start-button"); const video =
+    document.getElementById("video"); const videoOverlay =
+    document.getElementById("video-overlay");
+    skipButton.addEventListener("click", () => { videoOverlay.remove();});
+    startpButton.addEventListener("click", () => { startpButton.remove();
+    video.play(); }); video.addEventListener("ended", () => {
+    videoOverlay.remove(); });
+  </script>
 </html>

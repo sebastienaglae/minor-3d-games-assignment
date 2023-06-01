@@ -76,7 +76,7 @@ export default abstract class GameObject {
         if (hitpointComponent) {
             return hitpointComponent.alive;
         }
-        return false;
+        return true;
     }
 
     public getComponent<T extends Component>(s: new (parent: GameObject) => T): T {
@@ -130,4 +130,7 @@ export enum GameObjectType {
     Character = 0,
     Monster = 1,
     Projectile = 2,
+    Chest = 3,
+    Trigger = 4,
+    Npc = 5,
 }

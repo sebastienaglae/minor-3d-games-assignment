@@ -2,7 +2,6 @@ import "@babylonjs/loaders/glTF";
 import "@babylonjs/inspector";
 
 import { Engine } from "@babylonjs/core/Engines/engine"
-import WorldScene from "./scenes/world";
 import SpaceScene from './scenes/space';
 import { WebGPUEngine } from '@babylonjs/core';
 
@@ -37,5 +36,4 @@ async function init() {
     });
   });
 }
-
 init();

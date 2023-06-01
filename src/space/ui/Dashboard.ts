@@ -43,8 +43,9 @@ export class Dashboard {
     );
     this._screenMesh.parent = this.spaceship;
     this._screenMesh.visibility = 0.75;
-    this._screenMesh.position = new Vector3(0, -0.2, 1.5);
+    this._screenMesh.position = new Vector3(0, 0.75, 0.4);
     this._screenMesh.rotation = new Vector3(0.53, 0, 0);
+    this._screenMesh.scaling = new Vector3(0.6, 0.6, 1);
   }
 
   private _initGUI() {
@@ -58,16 +59,12 @@ export class Dashboard {
     this._uiTexture
       .parseFromURLAsync("assets/space/ui/FullDashboard.json")
       .then(() => {
-        // let material = ToonMaterial.createMaterial(this._uiTexture);
-
-        // this._screenMesh.material = material;
-        //Standard mat
         let material = new StandardMaterial("mat", this._scene);
         material.diffuseTexture = this._uiTexture;
-        material.backFaceCulling = false;
         this._grabElement();
       });
   }
+
   private _grabElement() {
     this._speedText = this._uiTexture.getControlByName(
       "SPEED"

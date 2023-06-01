@@ -1,5 +1,6 @@
 import {
   AbstractMesh,
+  Mesh,
   MeshBuilder,
   ParticleSystem,
   Texture,
@@ -8,6 +9,7 @@ import {
 import { ColorTheme } from "../colors/ColorTheme";
 
 export class TrailsEffect extends ParticleSystem {
+  private _box: Mesh;
   constructor(
     name: string,
     capacity: number,
@@ -16,11 +18,12 @@ export class TrailsEffect extends ParticleSystem {
     color: ColorTheme
   ) {
     super(name, capacity, scene);
-    var box = MeshBuilder.CreateBox("box", { size: 0.01 }, scene);
+    this._box = MeshBuilder.CreateBox("box", { size: 0.01 }, scene);
+    this._box.isVisible = false;
 
     this.particleTexture = new Texture("assets/space/effects/flare.png", scene);
-    box.parent = spaceShip;
-    this.emitter = box;
+    this._box.parent = spaceShip;
+    this.emitter = this._box;
     this.isLocal = true;
 
     this.minEmitBox = new Vector3(0, 0, 0);
@@ -32,7 +35,7 @@ export class TrailsEffect extends ParticleSystem {
     this.maxSize = 0.5;
     this.minLifeTime = 0.3;
     this.maxLifeTime = 1.5;
-    this.emitRate = 200;
+    this.emitRate = 0;
     this.blendMode = ParticleSystem.BLENDMODE_ONEONE;
     this.gravity = new Vector3(0, 0, -10);
     this.direction1 = new Vector3(-1, 4, 1);
@@ -41,4 +44,5 @@ export class TrailsEffect extends ParticleSystem {
     this.maxEmitPower = 0;
     this.updateSpeed = 0.005;
   }
+
 }
