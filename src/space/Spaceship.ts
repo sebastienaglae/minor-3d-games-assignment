@@ -53,7 +53,6 @@ export class Spaceship {
 
   private _rootUrl: string;
   private _sceneFilename: string;
-  private _scaleFactor: number = 0.1;
   private _scaleSpeed: number = 40;
 
   private _r: Vector4;
@@ -66,6 +65,7 @@ export class Spaceship {
   private _dashboard: Dashboard;
   private _planetManager: PlanetManager;
   private _selectedPlanetIndex: number;
+  private _spaceShipSpeed = 5;
   private _planetData: {
     planet: Planet;
     distance: number;
@@ -84,9 +84,9 @@ export class Spaceship {
     this._sceneFilename = sceneFilename;
     this._scene = scene;
     this._setupCamera();
-    this._maxSpeed = 5 * this._scaleFactor;
-    this._acceleration = (35 * this._scaleFactor) / this._scaleSpeed;
-    this._deceleration = (1 * this._scaleFactor) / this._scaleSpeed;
+    this._maxSpeed = 5 ;
+    this._acceleration = 35 / this._scaleSpeed;
+    this._deceleration = 1 / this._scaleSpeed;
     this._maxRotationSpeed = 0.05;
     this._rotationAcceleration = 0.025;
     this._rotationDeceleration = 0.004;
@@ -186,11 +186,7 @@ export class Spaceship {
       this._scene
     );
 
-    this._spaceship.scaling = new Vector3(
-      this._scaleFactor,
-      this._scaleFactor,
-      this._scaleFactor
-    );
+    this._spaceship.scaling = new Vector3(0.1, 0.1, 0.1);
   }
 
   private _setupCamera() {
@@ -306,14 +302,18 @@ export class Spaceship {
       this._uiUpdateTime = 250;
       this._updateDashboard();
     }
-      
-
     this._shakeCamera();
+
     if (this._lockMovement) return;
-    var deltaTime = this._scene.getEngine().getDeltaTime() / 1000.0;
+
+    let deltaTime = this._scene.getEngine().getDeltaTime() / 1000.0;
+    const rotationAccelerationDelta = this._rotationAcceleration * deltaTime;
+    const rotationDecelerationDelta = this._rotationDeceleration * deltaTime;
+    const accelerationDelta = this._acceleration * deltaTime;
+    const decelerationDelta = this._deceleration * deltaTime;
     let isPressed = false;
     if (this._isGoingBackward) {
-      this._speed += this._acceleration * deltaTime;
+      this._speed += accelerationDelta;
       if (this._speed >= 0) {
         this._speed = 0;
       } else if (this._speed > this._maxSpeed) {
@@ -329,14 +329,14 @@ export class Spaceship {
     // Left and right
     if (this._isGoingRight) {
       isPressed = true;
-      this._rotationSpeedHori += this._rotationAcceleration * deltaTime;
+      this._rotationSpeedHori += rotationAccelerationDelta;
       if (this._rotationSpeedHori > this._maxRotationSpeed) {
         this._rotationSpeedHori = this._maxRotationSpeed;
       }
     }
     if (this._isGoingLeft) {
       isPressed = true;
-      this._rotationSpeedHori -= this._rotationAcceleration * deltaTime;
+      this._rotationSpeedHori -= rotationAccelerationDelta;
       if (this._rotationSpeedHori < -this._maxRotationSpeed) {
         this._rotationSpeedHori = -this._maxRotationSpeed;
       }
@@ -344,14 +344,14 @@ export class Spaceship {
     // Up and down
     if (this._isGoingUp) {
       isPressed = true;
-      this._rotationSpeedVer += this._rotationAcceleration * deltaTime;
+      this._rotationSpeedVer += rotationAccelerationDelta;
       if (this._rotationSpeedVer > this._maxRotationSpeed) {
         this._rotationSpeedVer = this._maxRotationSpeed;
       }
     }
     if (this._isGoingDown) {
       isPressed = true;
-      this._rotationSpeedVer -= this._rotationAcceleration * deltaTime;
+      this._rotationSpeedVer -= rotationAccelerationDelta;
       if (this._rotationSpeedVer < -this._maxRotationSpeed) {
         this._rotationSpeedVer = -this._maxRotationSpeed;
       }
@@ -359,38 +359,38 @@ export class Spaceship {
     if (!isPressed) {
       // Horizontal deceleration (left and right)
       if (this._rotationSpeedHori > 0) {
-        this._rotationSpeedHori -= this._rotationDeceleration * deltaTime;
+        this._rotationSpeedHori -= rotationDecelerationDelta;
         if (this._rotationSpeedHori < 0) {
           this._rotationSpeedHori = 0;
         }
       }
       if (this._rotationSpeedHori < 0) {
-        this._rotationSpeedHori += this._rotationDeceleration * deltaTime;
+        this._rotationSpeedHori += rotationDecelerationDelta;
         if (this._rotationSpeedHori > 0) {
           this._rotationSpeedHori = 0;
         }
       }
       // Vertical deceleration (up and down)
       if (this._rotationSpeedVer > 0) {
-        this._rotationSpeedVer -= this._rotationDeceleration * deltaTime;
+        this._rotationSpeedVer -= rotationDecelerationDelta;
         if (this._rotationSpeedVer < 0) {
           this._rotationSpeedVer = 0;
         }
       }
       if (this._rotationSpeedVer < 0) {
-        this._rotationSpeedVer += this._rotationDeceleration * deltaTime;
+        this._rotationSpeedVer += rotationDecelerationDelta;
         if (this._rotationSpeedVer > 0) {
           this._rotationSpeedVer = 0;
         }
       }
       // Speed deceleration
       if (this._speed > 0) {
-        this._speed -= this._deceleration * deltaTime;
+        this._speed -= decelerationDelta;
         if (this._speed < 0) {
           this._speed = 0;
         }
       } else if (this._speed < 0) {
-        this._speed += this._deceleration * deltaTime;
+        this._speed += decelerationDelta;
         if (this._speed > 0) {
           this._speed = 0;
         }
@@ -399,10 +399,12 @@ export class Spaceship {
     this._turnHorizontal(this._rotationSpeedHori);
     this._turnVertical(this._rotationSpeedVer);
 
-    this._velocity = this._parentMesh.forward.scale(-this._speed);
+    this._velocity = this._parentMesh.forward.scale(
+      -this._speed * deltaTime * this._spaceShipSpeed
+    );
     this._parentMesh.moveWithCollisions(this._velocity);
-    
     this._computeSpeedKm();
+    this.computeSpeed();
 
     this._planetData = this._planetManager.getPlanet(
       this._selectedPlanetIndex,
@@ -416,6 +418,31 @@ export class Spaceship {
       this._fakeStop();
     }
   }
+
+private previousPosition = null;
+private accumulatedDistance = 0;
+private elapsedTime = 0;
+
+private computeSpeed() {
+  const currentPosition = this._parentMesh.position.clone();
+
+  if (this.previousPosition) {
+    const deltaTime = this._scene.getEngine().getDeltaTime() / 1000.0; // Delta time in seconds
+
+    const distance = currentPosition.subtract(this.previousPosition).length();
+    this.accumulatedDistance += distance;
+
+    this.elapsedTime += deltaTime;
+    if (this.elapsedTime >= 1) {
+      const speed = this.accumulatedDistance / this.elapsedTime; // Speed in units per second
+      console.log("Speed:", speed);
+      this.elapsedTime = 0;
+      this.accumulatedDistance = 0;
+    }
+  }
+
+  this.previousPosition = currentPosition;
+}
 
   private _updateEffects() {
     this._trailsSpeed.changeEmitRate(
@@ -463,8 +490,7 @@ export class Spaceship {
     this._speedCooldown -= this._scene.getEngine().getDeltaTime();
     if (this._speedCooldown <= 0) {
       this._speedKm =
-        ((((-this._speed * 3.6) / this._speedRefresh) * 1) /
-          this._scaleFactor) *
+        ((((-this._speed * 3.6) / this._speedRefresh) * 1)) *
         this._scaleSpeed;
       this._speedCooldown = this._speedRefresh;
     }

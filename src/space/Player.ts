@@ -14,8 +14,8 @@ export class FirstPersonPlayer {
   private playerMesh: Mesh;
   private _camera: UniversalCamera;
   private _startPosition: Vector3;
-  private _moveSpeedPerSec = 0.4;
-  private _moveRunPerSec = 0.65;
+  private _moveSpeedPerSec = 3;
+  private _moveRunPerSec = 4.5;
   private _moveForward = false;
   private _moveLeft = false;
   private _moveRight = false;
@@ -135,13 +135,14 @@ export class FirstPersonPlayer {
     if (this._shift) {
       speed = this._moveRunPerSec;
     }
+    speed *= this.scene.getEngine().getDeltaTime() / 1000;
 
     let move = new Vector3(x, 0, z);
-    let dir = Vector3.TransformNormal(move, this._camera.getWorldMatrix());
+    let dir = Vector3.TransformNormal(move, this._camera.getWorldMatrix()).scale(speed);
     dir.y = 0;
 
     this.playerMesh.physicsImpostor.setLinearVelocity(new Vector3(0, -1, 0));
-    this.playerMesh.moveWithCollisions(dir.scale(speed));
+    this.playerMesh.moveWithCollisions(dir);
     this.playerMesh.rotationQuaternion = Quaternion.FromEulerAngles(
       0,
       this._playerRotation,
