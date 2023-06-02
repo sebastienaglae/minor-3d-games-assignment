@@ -1,12 +1,16 @@
 import {
-    AbstractMesh, Color3,
+    AbstractMesh,
     DefaultRenderingPipeline,
     DirectionalLight,
     FreeCamera, HemisphericLight,
+    Color3,
+    CubeTexture,
+    MeshBuilder,
     PBRMaterial,
     SceneLoader, SceneOptimizer, SceneOptimizerOptions,
-    ScenePerformancePriority,
     ShadowGenerator,
+    StandardMaterial,
+    Texture,
     Vector2,
     Vector3
 } from "@babylonjs/core";
@@ -119,15 +123,19 @@ export default class WorldScene extends Scene {
         defaultPipeline.imageProcessing.vignetteWeight = 2.5;
         defaultPipeline.imageProcessing.vignetteStretch = 0.5;
 
-        /*const skybox = Mesh.CreateBox("skyBox", 5000.0, this);
-        const skyboxMaterial = new StandardMaterial("skyBox", this);
+
+        let skybox = MeshBuilder.CreateBox("skyBox", { size: 1000.0 }, this);
+        let skyboxMaterial = new StandardMaterial("skyBox", this);
         skyboxMaterial.backFaceCulling = false;
-        skyboxMaterial.reflectionTexture = new CubeTexture("https://assets.babylonjs.com/textures/TropicalSunnyDay", this);
+        skyboxMaterial.reflectionTexture = new CubeTexture(
+        "assets/skybox/skybox",
+        this
+        );
         skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
         skyboxMaterial.diffuseColor = new Color3(0, 0, 0);
         skyboxMaterial.specularColor = new Color3(0, 0, 0);
-        skyboxMaterial.disableLighting = true;
-        skybox.material = skyboxMaterial;*/
+        skybox.material = skyboxMaterial;
+        skybox.infiniteDistance = true;
 
         this._initialized = true;
         this._optimizer.start();
