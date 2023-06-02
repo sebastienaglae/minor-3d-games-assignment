@@ -72,7 +72,7 @@ export default class SpaceScene extends Scene {
           this._ship.exitSpaceship();
           this._station.enterStation();
         }
-        if (kbInfo.event.key == "f") {
+        if (kbInfo.event.key == "f" || kbInfo.event.key == "F") {
           this._inputF = true;
         } else {
           this._inputF = false;
@@ -197,23 +197,19 @@ export default class SpaceScene extends Scene {
         Dialogue.getInstance().hideHint();
         this._dialogue.clear();
         this._dialogue.addText(
-          "Bienvenue dans Nakama ! Nous sommes heureux de vous accueillir dans ce jeu spatial épique (1/5)",
+          "Bienvenue à bord du vaisseau spatial Luminaris. Je suis votre IA de bord, et je serai votre guide pour cette aventure. (1/4)",
           10000
         );
         this._dialogue.addText(
-          "Avant de commencer, voici les commandes de votre vaisseau spatial : Z pour monter, S pour descendre, Q pour tourner à gauche et D pour tourner à droite (2/5)",
+          "Avant de commencer, voici les commandes de votre vaisseau spatial : Z pour monter, S pour descendre, Q pour tourner à gauche et D pour tourner à droite (2/4)",
           10000
         );
         this._dialogue.addText(
-          "Espace pour accélérer, et Shift pour ralentir. Assurez-vous de les maîtriser avant de partir à l'aventure. (3/5)",
+          "Espace pour accélérer, et Shift pour ralentir. Assurez-vous de les maîtriser avant de partir à l'aventure. (3/4)",
           10000
         );
         this._dialogue.addText(
-          "Votre mission est de naviguer dans l'espace et de choisir la planète que vous voulez (La plus proche, sinon c loin). Utilisez la touche E pour orienter votre vaisseau vers elle. Une fois que vous l'avez trouvée, atterrissez sur sa surface pour explorer ses merveilles. (4/5)",
-          10000
-        );
-        this._dialogue.addText(
-          "Pour changer de planete, utilisez la touche fleche du haut pour aller vers la planete suivante, et la touche fleche du bas pour aller vers la planete precedente. (5/5)",
+          "Votre mission est de vous diriger vers la planete Nakama. Vous pouvez activer sa sélection en appuyant sur la touche E (4/4)",
           10000
         );
       }

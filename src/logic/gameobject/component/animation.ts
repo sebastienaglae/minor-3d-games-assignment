@@ -24,7 +24,7 @@ export default class AnimationComponent extends Component {
         const movementComponent = this.parent.findComponent(MovementComponent) ?? this.parent.findComponent(AIMovementComponent);
         if (movementComponent) {
             movementComponent.onMove.add(rate => {
-                if (this._currentGroup !== null && this._currentGroup.isPlaying) {
+                if (this._currentGroup && this._currentGroup.isPlaying) {
                     if (this._currentType === "walk" || this._currentType === "idle" || this._currentType === "damage") {
                         // ok
                     } else if (this._currentType === "attack" && (combatComponent === null || combatComponent.canAttackWhileMoving) && rate >= 0.25) {

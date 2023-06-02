@@ -397,7 +397,7 @@
                     "id": 400002,
                     "name": "Chest.2",
                     "position": {
-                        "x": -0.449996948,
+                        "x": 20.449996948,
                         "y": 191.29
                     },
                     "direction": 2.1153388,
@@ -742,7 +742,7 @@
                     "id": 200012,
                     "name": "Monster.12",
                     "position": {
-                        "x": 7.699997,
+                        "x": 20.5999985,
                         "y": 290.4
                     },
                     "direction": 3.14159274,
@@ -1122,7 +1122,7 @@
             "npcDialogOverride": [
                 { "text": "Notre planète court un grand danger, nous devons nous battre pour la sauver !", "delay": 0 },
                 { "text": "Au total, nous avons dénombrer 10 créatures de Astro Corp autours de la ville.", "delay": 0 },
-                { "text": "Vous devrez les trouver assez facilement en cherchant autours de la ville.", "delay": 0 },
+                { "text": "Vous devriez les trouver assez facilement en cherchant autours de la ville.", "delay": 0 },
                 { "text": "Tuez les tous et revenez me voir.", "delay": 0 }
             ],
             "npcMovePointIds": []

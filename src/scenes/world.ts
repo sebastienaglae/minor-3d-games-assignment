@@ -1,8 +1,8 @@
 import {
-    AbstractMesh,
+    AbstractMesh, Color3,
     DefaultRenderingPipeline,
     DirectionalLight,
-    FreeCamera,
+    FreeCamera, HemisphericLight,
     PBRMaterial,
     SceneLoader, SceneOptimizer, SceneOptimizerOptions,
     ScenePerformancePriority,
@@ -80,7 +80,7 @@ export default class WorldScene extends Scene {
 
         this.loadLevel();
 
-        this._sun = this.lights[0] as DirectionalLight;
+        this._sun = this.lights.find(l => l.name === 'Directional Light') as DirectionalLight;
         this._sun.autoCalcShadowZBounds = true;
 
         this._shadowGenerator = new ShadowGenerator(4096, this._sun, null, this.activeCamera);
@@ -175,6 +175,10 @@ export default class WorldScene extends Scene {
     }
 
     private async createTerrain() : Promise<void> {
+        // global illumination
+        const light2 = new HemisphericLight("light2", new Vector3(0, -1, 0), this);
+        light2.intensity = 0.05;
+
         const assetRootPath = "assets/scenes/" + this._config.name + "/models/";
         const assetLoaderPromises = [];
 
