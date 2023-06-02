@@ -231,7 +231,7 @@
                 "attackLoadingTime": 0.5,
                 "canAttackWhileMoving": false,
                 "shootDamage": 40,
-                "shootRadius": 4,
+                "shootRadius": 6,
 
                 "projectileId": 0,
                 "projectileSpeed": 0,
@@ -244,7 +244,7 @@
                 "audioId": 12
             },
             "movement": {
-                "speed": 4,
+                "speed": 4.5,
                 "dashSpeed": 45,
                 "acceleration": 15,
                 "deceleration": 10,
@@ -263,15 +263,15 @@
                 "walk": {
                     "clip": "Walk Forward WO Root",
                     "loop": true,
-                    "speed": 0.5,
+                    "speed": 2,
                     "alt": []
                 },
                 "attack": {
-                    "clip": "Hit Ground Attack",
+                    "clip": "Stomp Attack",
                     "loop": false,
                     "speed": 1,
                     "alt": [
-                        "Punch Attack"
+                        "Bite Attack"
                     ]
                 },
                 "die": {
@@ -358,7 +358,7 @@
                         "x": 287.21,
                         "y": 48.4699936
                     },
-                    "direction": 2.34921312,
+                    "direction": -0.7784168,
                     "type": 3,
                     "params": {
                         "direction": 2.34921312,
@@ -372,7 +372,7 @@
                         "x": 296.4,
                         "y": 319.9
                     },
-                    "direction": 2.62497449,
+                    "direction": -1.05417812,
                     "type": 3,
                     "params": {
                         "direction": 2.62497449,
@@ -386,7 +386,7 @@
                         "x": 155.56,
                         "y": 333.9
                     },
-                    "direction": 1.57079625,
+                    "direction": 1.11758709E-07,
                     "type": 3,
                     "params": {
                         "direction": 1.57079625,
@@ -400,7 +400,7 @@
                         "x": -0.449996948,
                         "y": 191.29
                     },
-                    "direction": -0.544542432,
+                    "direction": 2.1153388,
                     "type": 3,
                     "params": {
                         "direction": -0.544542432,
@@ -414,7 +414,7 @@
                         "x": 138.2,
                         "y": 313.5
                     },
-                    "direction": -5.58793545E-08,
+                    "direction": 1.57079637,
                     "type": 5,
                     "params": {
                         "config": 2,
@@ -454,7 +454,7 @@
                         "x": 81.1000061,
                         "y": 75.19
                     },
-                    "direction": -1.33786261,
+                    "direction": 2.908659,
                     "type": 1,
                     "params": {
                         "config": 1,
@@ -468,7 +468,7 @@
                         "x": 84.22,
                         "y": 82.92999
                     },
-                    "direction": 0.8447392,
+                    "direction": 0.7260572,
                     "type": 5,
                     "params": {
                         "config": 1
@@ -481,7 +481,7 @@
                         "x": 180.7,
                         "y": 305.7
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 4,
                     "params": {
                         "area": [
@@ -500,7 +500,7 @@
                         "x": 103.549995,
                         "y": 114.289993
                     },
-                    "direction": 0.6876505,
+                    "direction": 0.883145869,
                     "type": 3,
                     "params": {
                         "direction": 0.6876505,
@@ -514,7 +514,7 @@
                         "x": 70.7999954,
                         "y": 246.64
                     },
-                    "direction": 0.7516404,
+                    "direction": 0.819156,
                     "type": 5,
                     "params": {
                         "config": 2
@@ -527,7 +527,7 @@
                         "x": 155.099991,
                         "y": 249.1
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 4,
                     "params": {
                         "area": [
@@ -546,7 +546,7 @@
                         "x": 90.92,
                         "y": 77.8500061
                     },
-                    "direction": 3.7778697,
+                    "direction": -2.20707321,
                     "type": 1,
                     "params": {
                         "config": 1,
@@ -560,7 +560,7 @@
                         "x": 172.4,
                         "y": 15.1999969
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 2,
@@ -574,7 +574,7 @@
                         "x": 139.8,
                         "y": 388.3
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 1,
@@ -588,7 +588,7 @@
                         "x": 123.899994,
                         "y": 388.3
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 1,
@@ -602,7 +602,7 @@
                         "x": 91.54999,
                         "y": 87.67999
                     },
-                    "direction": 2.56423783,
+                    "direction": -0.9934415,
                     "type": 1,
                     "params": {
                         "config": 1,
@@ -616,7 +616,7 @@
                         "x": 283.8,
                         "y": 385.099976
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 1,
@@ -630,7 +630,7 @@
                         "x": 225.799988,
                         "y": 103.899994
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 3,
@@ -644,7 +644,7 @@
                         "x": 14.6999969,
                         "y": 213.7
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 3,
@@ -658,7 +658,7 @@
                         "x": 268.4,
                         "y": 35.1999969
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 2,
@@ -672,7 +672,7 @@
                         "x": 159.3,
                         "y": 260.0
                     },
-                    "direction": 1.57079625,
+                    "direction": 1.11758709E-07,
                     "type": 5,
                     "params": {
                         "config": 2
@@ -685,7 +685,7 @@
                         "x": 54.6,
                         "y": 23.0
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 0,
                     "params": {
                         "config": 1
@@ -698,7 +698,7 @@
                         "x": 273.599976,
                         "y": 175.9
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 3,
@@ -712,7 +712,7 @@
                         "x": 15.5999985,
                         "y": 388.3
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 2,
@@ -726,7 +726,7 @@
                         "x": 79.3999939,
                         "y": 82.0
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 4,
                     "params": {
                         "area": [
@@ -745,7 +745,7 @@
                         "x": 7.699997,
                         "y": 290.4
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 1,
                     "params": {
                         "config": 1,
@@ -759,7 +759,7 @@
                         "x": 159.3,
                         "y": 294.0
                     },
-                    "direction": -1.57079637,
+                    "direction": 3.14159274,
                     "type": 5,
                     "params": {
                         "config": 2
@@ -773,7 +773,7 @@
                         "x": 203.5,
                         "y": 184.9
                     },
-                    "direction": -3.14159274
+                    "direction": 3.14159274
                 },
                 {
                     "id": 3,
@@ -781,7 +781,7 @@
                         "x": 203.69,
                         "y": 191.1
                     },
-                    "direction": -3.14159274
+                    "direction": 3.14159274
                 },
                 {
                     "id": 6,
@@ -789,7 +789,7 @@
                         "x": 205.2,
                         "y": 254.21
                     },
-                    "direction": -3.14159274
+                    "direction": 3.14159274
                 },
                 {
                     "id": 4,
@@ -797,7 +797,7 @@
                         "x": 92.8,
                         "y": 75.9
                     },
-                    "direction": 2.27765465
+                    "direction": -2.27765465
                 },
                 {
                     "id": 7,
@@ -805,7 +805,7 @@
                         "x": 205.2,
                         "y": 248.29
                     },
-                    "direction": -3.14159274
+                    "direction": 3.14159274
                 },
                 {
                     "id": 5,
@@ -813,7 +813,7 @@
                         "x": 94.4,
                         "y": 50.5
                     },
-                    "direction": -3.14159274
+                    "direction": 3.14159274
                 },
                 {
                     "id": 8,
@@ -821,7 +821,7 @@
                         "x": 205.01,
                         "y": 241.22
                     },
-                    "direction": -3.14159274
+                    "direction": 3.14159274
                 },
                 {
                     "id": 2,
@@ -829,7 +829,7 @@
                         "x": 78.9,
                         "y": 154.2
                     },
-                    "direction": -3.14159274
+                    "direction": 3.14159274
                 },
                 {
                     "id": 1,
@@ -837,7 +837,7 @@
                         "x": 84.2,
                         "y": 83.0
                     },
-                    "direction": -3.14159274
+                    "direction": 3.14159274
                 }
             ],
             "id": 1,

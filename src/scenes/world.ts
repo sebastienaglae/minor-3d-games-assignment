@@ -63,7 +63,7 @@ export default class WorldScene extends Scene {
         await super.init();
         await this.createTerrain();
 
-        await this.debugLayer.show();
+        // await this.debugLayer.show();
 
         this.blockMaterialDirtyMechanism = true;
 
@@ -151,7 +151,7 @@ export default class WorldScene extends Scene {
             loadData.push({
                 id: object.id,
                 position: new Vector3(object.position.x, object.position.y, 0),
-                direction: Math.PI / 2 - object.direction,
+                direction: object.direction,
                 type: object.type,
                 ...object.params
             });
@@ -207,10 +207,6 @@ export default class WorldScene extends Scene {
         root.rotation = rotation;
         root.scaling = scaling;
 
-        for (const child of model.meshes) {
-            this._optimizeMesh(child);
-        }
-
         const excludeShadowMeshNames = [
             "_rock_",
             "_rocks_",
@@ -230,8 +226,13 @@ export default class WorldScene extends Scene {
                 // set roughness to 0.25
                 if (mesh.material instanceof PBRMaterial) {
                     mesh.material.roughness = 0.3;
+                    mesh.material.metallic = 0;
                 }
             }
+        }
+
+        for (const child of model.meshes) {
+            this._optimizeMesh(child);
         }
     }
 
