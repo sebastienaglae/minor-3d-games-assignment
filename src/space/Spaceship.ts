@@ -210,15 +210,19 @@ export class Spaceship {
         case 1:
           switch (kbInfo.event.key) {
             case "q":
+            case "Q":
               this._isGoingLeft = true;
               break;
             case "d":
+            case "D":
               this._isGoingRight = true;
               break;
             case "z":
+            case "Z":
               this._isGoingUp = true;
               break;
             case "s":
+            case "S":
               this._isGoingDown = true;
               break;
             case " ":
@@ -228,9 +232,11 @@ export class Spaceship {
               this._isGoingBackward = true;
               break;
             case "e":
+            case "E":
               this._reorientToPlanet();
               break;
             case "r":
+            case "R":
               this._toggleCameraView();
               break;
             case "ArrowUp":
@@ -244,15 +250,19 @@ export class Spaceship {
         case 2:
           switch (kbInfo.event.key) {
             case "q":
+            case "Q":
               this._isGoingLeft = false;
               break;
             case "d":
+            case "D":
               this._isGoingRight = false;
               break;
             case "z":
+            case "Z":
               this._isGoingUp = false;
               break;
             case "s":
+            case "S":
               this._isGoingDown = false;
               break;
             case " ":

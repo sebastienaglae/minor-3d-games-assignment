@@ -123,6 +123,14 @@ export default abstract class GameObject {
         };
     }
 
+    public canInteractWith(gameObject: GameObject): boolean {
+        return false;
+    }
+
+    public interactWith(gameObject: GameObject): void {
+        // do nothing
+    }
+
     public abstract get type(): GameObjectType;
 }
 

@@ -7,4 +7,5 @@ export default interface ChestConfig extends Config {
     openingAnimation: AnimationClipConfig;
     openedAnimation: AnimationClipConfig;
     closedAnimation: AnimationClipConfig;
+    audioId: number;
 }

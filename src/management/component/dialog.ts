@@ -4,6 +4,7 @@ import Scene from "../../scenes/scene";
 import MissionManager from "../../logic/mission/manager";
 import {Dialogue} from "../../space/ui/Dialogue";
 import Mission from "../../logic/mission/mission";
+import {Dialog} from "../../logic/config/mission";
 
 export default class DialogComponent implements ISceneComponent {
     private _missionManager: MissionManager;
@@ -30,11 +31,15 @@ export default class DialogComponent implements ISceneComponent {
             this._currentMission = currentMission;
             this._manager.clear();
             if (currentMission != null) {
-                for (const dialog of currentMission.config.dialogs) {
-                    const duration = dialog.delay != 0 ? dialog.delay : dialog.text.length * 0.075 + 2;
-                    this._manager.addText(dialog.text, duration);
-                }
+                this.showDialogGroup(currentMission.config.dialogs);
             }
+        }
+    }
+
+    showDialogGroup(dialogs: Dialog[]) {
+        for (const dialog of dialogs) {
+            const duration = dialog.delay != 0 ? dialog.delay : dialog.text.length * 0.05 + 2;
+            this._manager.addText(dialog.text, duration);
         }
     }
 

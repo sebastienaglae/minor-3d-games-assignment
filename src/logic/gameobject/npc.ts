@@ -7,9 +7,11 @@ import NpcConfig from "../config/gameobject/npc";
 import ConfigTable from "../config/table";
 import Time from "../time/time";
 import { Vector2 } from "@babylonjs/core";
-import CombatComponent from "./component/combat";
+import {EventListT} from "../util/eventList";
 
 export default class Npc extends GameObject {
+    public onInteract: EventListT<Npc> = new EventListT<Npc>();
+
     private _direction: number;
     private _startWaitingDistance: number = 0;
     private _endWaitingDistance: number = 0;
@@ -84,6 +86,14 @@ export default class Npc extends GameObject {
         this._patrolFreezeTime = isPatrolFrozen ? 100000000 : 0;
     }
 
+    public canInteractWith(gameObject: GameObject): boolean {
+        return !this._attachedToMission && gameObject.type === GameObjectType.Character && Vector2.DistanceSquared(this.position, gameObject.position) < 15;
+    }
+
+    public interactWith(gameObject: GameObject): void {
+        this.onInteract.trigger(this);
+    }
+
     public update(): void {
         super.update();
 
@@ -117,7 +127,7 @@ export default class Npc extends GameObject {
                         movementComponent.moveTo(nextPatrolPoint);
                         this._patrolIndex++;
                     } else {
-                        this._reversePatrol = true;
+                        this._reversePatrol = !this._reversePatrol;
                         this._patrolIndex = 0;
                         this._patrolFreezeTime = Time.getTicks(this._patrolEndRollbackDelay);
                     }

@@ -6,12 +6,17 @@ import Projectile from "../projectile";
 import Component, { ComponentType } from "./component";
 import HitpointComponent from "./hitpoint";
 import {EventList} from "../../util/eventList";
+import MovementComponent from "./movement";
+import AIMovementComponent from "./aiMovement";
 
 export default class CombatComponent extends Component {
     public onAttack: EventList = new EventList();
+    public onPrepareAttack: EventList = new EventList();
 
     protected _config: CombatConfig;
     private _attackCooldown: number = 0;
+    private _attackLoading: number = -1;
+    private _attackDirection: number = 0;
 
     constructor(parent: GameObject = null, config: CombatConfig = null) {
         super(parent);
@@ -22,8 +27,20 @@ export default class CombatComponent extends Component {
         return ComponentType.Combat;
     }
 
+    public get config(): CombatConfig {
+        return this._config;
+    }
+
     public get canAttack(): boolean {
-        return this._attackCooldown <= 0;
+        return this._attackCooldown <= 0 && this._attackLoading < 0;
+    }
+
+    public get canAttackWhileMoving(): boolean {
+        return this._config.canAttackWhileMoving;
+    }
+
+    public get isAttacking(): boolean {
+        return this._attackLoading !== -1;
     }
 
     private get team(): number {
@@ -31,9 +48,15 @@ export default class CombatComponent extends Component {
         return hitpointComponent.team;
     }
 
-    public attack(direction: number): void {
+    public prepareAttack(direction: number): void {
         console.assert(this.canAttack, "Cannot attack");
-        console.log("Attack");
+        this._attackLoading = Time.getTicks(this._config.attackLoadingTime);
+        this._attackDirection = direction;
+
+        this.onPrepareAttack.trigger();
+    }
+
+    private _attack(direction: number): void {
         this._attackCooldown = Time.getTicks(this._config.attackDelay);
         if (this._config.projectileId) {
             const projectileConfig = ConfigTable.getProjectile(this._config.projectileId);
@@ -65,6 +88,13 @@ export default class CombatComponent extends Component {
     public update(): void {
         if (this._attackCooldown > 0) {
             this._attackCooldown--;
+        }
+        if (this._attackLoading > 0) {
+            this._attackLoading--;
+            if (this._attackLoading === 0) {
+                this._attackLoading = -1;
+                this._attack(this._attackDirection);
+            }
         }
     }
 }

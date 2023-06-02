@@ -12,6 +12,7 @@ import MonsterCombatComponent from "./monsterCombat";
 export default class AnimationComponent extends Component {
     private _groups: { [name: string]: AnimationGroup } = {};
     private _currentGroup: AnimationGroup;
+    private _currentType: string;
 
     private _config: AnimationConfig;
 
@@ -19,30 +20,31 @@ export default class AnimationComponent extends Component {
         super(parent);
         this._config = config;
 
-        let idleCondition = false;
-        let isAttacking = false;
+        const combatComponent = this.parent.findComponent(CombatComponent) ?? this.parent.findComponent(MonsterCombatComponent);
         const movementComponent = this.parent.findComponent(MovementComponent) ?? this.parent.findComponent(AIMovementComponent);
         if (movementComponent) {
             movementComponent.onMove.add(rate => {
-                if (rate < 0.25) {
-                    if (!idleCondition && (!isAttacking || !this._currentGroup.isPlaying)) {
-                        idleCondition = true;
-                        isAttacking = false;
-                        this.play("idle");
+                if (this._currentGroup !== null && this._currentGroup.isPlaying) {
+                    if (this._currentType === "walk" || this._currentType === "idle" || this._currentType === "damage") {
+                        // ok
+                    } else if (this._currentType === "attack" && (combatComponent === null || combatComponent.canAttackWhileMoving) && rate >= 0.25) {
+                        // ok
+                    } else {
+                        return;
                     }
+                }
+
+                if (rate < 0.25) {
+                    this.play("idle");
                 } else {
-                    idleCondition = false;
-                    isAttacking = false;
                     this.play("walk", rate);
                 }
             });
         }
 
-        const combatComponent = this.parent.findComponent(CombatComponent) ?? this.parent.findComponent(MonsterCombatComponent);
         if (combatComponent) {
-            combatComponent.onAttack.add(() => {
+            combatComponent.onPrepareAttack.add(() => {
                 this.play("attack");
-                isAttacking = true;
             });
         }
 
@@ -50,11 +52,9 @@ export default class AnimationComponent extends Component {
         if (hitpointComponent) {
             hitpointComponent.onDeath.add(() => {
                 this.play("die");
-                isAttacking = false;
             });
             hitpointComponent.onDamage.add(() => {
                 this.play("damage");
-                isAttacking = false;
             });
         }
 
@@ -122,6 +122,7 @@ export default class AnimationComponent extends Component {
         }
 
         this._loadAnimation(clip, speed, stopCurrent, randomize);
+        this._currentType = name;
     }
 
     public get type(): ComponentType {

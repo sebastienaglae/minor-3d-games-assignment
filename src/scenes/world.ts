@@ -25,6 +25,7 @@ import DialogComponent from "../management/component/dialog";
 import MeshProvider from "../management/meshprovider";
 import UIComponent from "../management/component/ui";
 import AudioComponent from "../management/component/audio";
+import {Dialogue} from "../space/ui/Dialogue";
 
 export default class WorldScene extends Scene {
     private static readonly CAMERA_SPEED: number = 15;
@@ -39,6 +40,8 @@ export default class WorldScene extends Scene {
     private _sun: DirectionalLight;
     private _shadowGenerator: ShadowGenerator;
     private _optimizer: SceneOptimizer;
+
+    private _gameOverShown: boolean = false;
 
     constructor(engine: Engine, config: SceneConfig) {
         super(engine);
@@ -60,7 +63,7 @@ export default class WorldScene extends Scene {
         await super.init();
         await this.createTerrain();
 
-        // await this.debugLayer.show();
+        await this.debugLayer.show();
 
         this.blockMaterialDirtyMechanism = true;
 
@@ -110,7 +113,7 @@ export default class WorldScene extends Scene {
 
         defaultPipeline.imageProcessingEnabled = true;
         defaultPipeline.imageProcessing.contrast = 1.10;
-        defaultPipeline.imageProcessing.exposure = 1.15;
+        defaultPipeline.imageProcessing.exposure = 1.1;
         defaultPipeline.imageProcessing.toneMappingEnabled = false;
         defaultPipeline.imageProcessing.vignetteEnabled = true;
         defaultPipeline.imageProcessing.vignetteWeight = 2.5;
@@ -130,6 +133,12 @@ export default class WorldScene extends Scene {
         this._optimizer.start();
 
         await MeshProvider.instance.executeAsync();
+
+        Dialogue.getInstance().onRetry(() => {
+            Dialogue.getInstance().hideGameOver();
+            this.loadLevel();
+            this._gameOverShown = false;
+        })
 
         console.log('scene initialized');
     }
@@ -170,13 +179,9 @@ export default class WorldScene extends Scene {
         const assetLoaderPromises = [];
 
         for (const model of this._config.models) {
-            // convert unity coordinates to babylon coordinates
             const position = new Vector3(model.position.x, model.position.y, model.position.z);
-            position.x *= -1;
-            position.z *= -1;
-            const rotation = new Vector3(model.rotation.x * Math.PI / 180, model.rotation.y * Math.PI / 180, model.rotation.z * Math.PI / 180);
+            const rotation = new Vector3(model.rotation.x, model.rotation.y, model.rotation.z);
             const scaling = new Vector3(model.scale.x, model.scale.y, model.scale.z);
-            scaling.x *= -1; 
 
             assetLoaderPromises.push(this.loadModelAsync(assetRootPath + model.path, position, rotation, scaling));
         }
@@ -224,7 +229,7 @@ export default class WorldScene extends Scene {
                 mesh.receiveShadows = true;
                 // set roughness to 0.25
                 if (mesh.material instanceof PBRMaterial) {
-                    mesh.material.roughness = 0.25;
+                    mesh.material.roughness = 0.3;
                 }
             }
         }
@@ -248,16 +253,20 @@ export default class WorldScene extends Scene {
             return;
         }
 
+        const character = this._level.gameObjectManager.player;
+        if (character === null) {
+            if (!this._gameOverShown) {
+                Dialogue.getInstance().showGameOver();
+                this._gameOverShown = true;
+            }
+            return;
+        }
+
         const delta = this.getEngine().getDeltaTime() / 1000;
         this._logicTime = Math.min(this._logicTime + delta, 10000);
         while (this._logicTime > Time.TICK_DELTA_TIME) {
             this._level.update();
             this._logicTime -= Time.TICK_DELTA_TIME;
-        }
-
-        const character = this._level.gameObjectManager.player;
-        if (character === null) {
-            this.loadLevel();
         }
     }
 

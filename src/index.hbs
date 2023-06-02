@@ -21,11 +21,14 @@
     <div id="game-overlay" style="display: none">
       <div id="hint-text"></div>
       <div id="monster-count">Monstres à tuer : 10</div>
+      <div id="chest-count">Coffres à ouvrir : 10</div>
       <div id="player-info">
         <img id="player-image" src="player.png" alt="Joueur" />
         <div id="health-bar"></div>
-        <div id="quest-title">Titre de la quête</div>
-        <div id="quest-description">Description de la quête</div>
+      </div>
+      <div id="quest-info">
+          <div id="quest-title">Titre de la quête</div>
+          <div id="quest-description">Description de la quête</div>
       </div>
       <div id="dialogues" style="display: none">Dialogues du jeu</div>
     </div>
@@ -33,6 +36,23 @@
       <video id="video" src="./assets/videos/intro.mp4"></video>
       <button id="skip-button" class="button">Cliquer pour passer</button>
       <button id="start-button" class="button">Cliquer pour commencer</button>
+    </div>
+    <div id="game-over" style="display: none;">
+        <img src="./assets/images/game-over.png" alt="Game Over" />
+        <div id="game-over-overlay">
+            <div id="game-over-text">Vous avez échoué à votre mission...</div>
+            <div id="game-over-text">La galaxie Erito est désormais perdue...</div>
+            <button id="retry-button" class="button">Recommencer ?</button>
+        </div>
+    </div>
+    <div id="game-end" style="display: none;">
+        <img src="./assets/images/game-end.png" alt="Game End" />
+        <div id="game-over-overlay">
+            <div id="game-over-text">Vous avez sauvé la galaxie Erito !</div>
+            <div id="game-over-text">J'espère que vous avez apprécié votre aventure...</div>
+            <div id="game-over-text">Avez-vous trouvé tous les coffres ?</div>
+            <button id="continue-button" class="button">Continuer ?</button>
+        </div>
     </div>
     <canvas
       id="view"
@@ -48,5 +68,10 @@
     startpButton.addEventListener("click", () => { startpButton.remove();
     video.play(); }); video.addEventListener("ended", () => {
     videoOverlay.remove(); });
+
+    const continueButton = document.getElementById("continue-button");
+    continueButton.onclick = () => {
+        document.getElementById("game-end").style.display = "none";
+    };
   </script>
 </html>

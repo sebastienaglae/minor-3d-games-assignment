@@ -51,6 +51,11 @@ export default class PathFinder {
 
         const finalPath = PathFinder.buildPath(path, resolution, this._downscaleFactor);
 
+        finalPath[0].x = start.x;
+        finalPath[0].y = start.y;
+        finalPath[finalPath.length - 1].x = end.x;
+        finalPath[finalPath.length - 1].y = end.y;
+
         return finalPath;
     }
 

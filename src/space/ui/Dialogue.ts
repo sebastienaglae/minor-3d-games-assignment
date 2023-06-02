@@ -8,15 +8,22 @@ export class Dialogue {
   private _textTime: number[] = [];
   private _textTimeClone: number[] = [];
   private monsterCountElement: HTMLDivElement;
+  private chestCountElement: HTMLDivElement;
+  private retryButton: HTMLButtonElement;
   private playerInfo: PlayerInfo;
   private dialoguesElement: HTMLDivElement;
   private hintElement: HTMLDivElement;
   private overlayElement: HTMLDivElement;
+  private gameOverElement: HTMLDivElement;
+  private gameEndElement: HTMLDivElement;
   private _isLooping: boolean = false;
 
   constructor() {
     this.monsterCountElement = document.getElementById(
       "monster-count"
+    ) as HTMLDivElement;
+    this.chestCountElement = document.getElementById(
+        "chest-count"
     ) as HTMLDivElement;
     this.playerInfo = {
       healthBar: document.getElementById("health-bar") as HTMLDivElement,
@@ -32,6 +39,15 @@ export class Dialogue {
     this.hintElement = document.getElementById("hint-text") as HTMLDivElement;
     this.overlayElement = document.getElementById(
       "game-overlay"
+    ) as HTMLDivElement;
+    this.retryButton = document.getElementById(
+        "retry-button"
+    ) as HTMLButtonElement;
+    this.gameOverElement = document.getElementById(
+        "game-over"
+    ) as HTMLDivElement;
+    this.gameEndElement = document.getElementById(
+        "game-end"
     ) as HTMLDivElement;
   }
 
@@ -75,6 +91,10 @@ export class Dialogue {
     this.monsterCountElement.innerText = `Monstres restants : ${count}`;
   }
 
+  updateChestCount(count: number, total: number) {
+    this.chestCountElement.innerText = `Coffres trouvés : ${count} / ${total}`;
+  }
+
   updatePlayerInfo(
     health: number,
     questTitle: string,
@@ -86,12 +106,12 @@ export class Dialogue {
   }
 
   updateHealthBar(health: number) {
-    this.playerInfo.healthBar.style.width = `${health}%`;
+    this.playerInfo.healthBar.style.width = `${health*2}%`;
   }
 
   updateQuest(questTitle: string, questDescription: string) {
     this.playerInfo.questTitle.innerText = questTitle;
-    this.playerInfo.questDescription.innerText = questDescription;
+    this.playerInfo.questDescription.innerHTML = questDescription;
   }
 
   updateQuestTitle(questTitle: string) {
@@ -113,6 +133,7 @@ export class Dialogue {
 
   show() {
     this.monsterCountElement.style.display = "block";
+    this.chestCountElement.style.display = "block";
     this.playerInfo.healthBar.style.display = "block";
     this.playerInfo.questTitle.style.display = "block";
     this.playerInfo.questDescription.style.display = "block";
@@ -124,6 +145,7 @@ export class Dialogue {
 
   hide() {
     this.overlayElement.style.display = "none";
+    this.gameOverElement.style.display = "none";
   }
 
   clearDialogues() {
@@ -133,6 +155,7 @@ export class Dialogue {
 
   showOnlyDialogues() {
     this.monsterCountElement.style.display = "none";
+    this.chestCountElement.style.display = "none";
     this.playerInfo.healthBar.style.display = "none";
     this.playerInfo.questTitle.style.display = "none";
     this.playerInfo.questDescription.style.display = "none";
@@ -160,6 +183,24 @@ export class Dialogue {
 
   public get isCompleted(): boolean {
     return this._texts.length == 0;
+  }
+
+  public onRetry(callback: () => void) {
+    this.retryButton.addEventListener("click", callback, {
+        once: true,
+    });
+  }
+
+  public showGameOver() {
+    this.gameOverElement.style.display = "block";
+  }
+
+  public hideGameOver() {
+    this.gameOverElement.style.display = "none";
+  }
+
+  public showGameEnd() {
+    this.gameEndElement.style.display = "block";
   }
 }
 

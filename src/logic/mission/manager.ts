@@ -51,6 +51,14 @@ export default class MissionManager {
         return null;
     }
 
+    public reloadCurrentMission() {
+        if (this._currentMission === null) {
+            return;
+        }
+        this._currentMission = new Mission(this._currentMission.config, this._level);
+        this._currentMission.start();
+    }
+
     public getCompletedMissionsInGroup(group: number): MissionConfig[] {
         const missions = ConfigTable.missions.filter(mission => mission.groupId === group);
         return missions.filter(mission => this.isMissionCompleted(mission));

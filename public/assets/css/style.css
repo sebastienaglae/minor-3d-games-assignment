@@ -21,6 +21,12 @@ body {
   right: 10px;
 }
 
+#chest-count {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+}
+
 #player-info {
   position: absolute;
   top: 10px;
@@ -28,16 +34,32 @@ body {
 }
 
 #player-info img {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   max-width: 20vw;
 }
 
 #health-bar {
-  width: 100px;
+  width: 200px;
   height: 10px;
   background-color: green;
   margin-top: 5px;
+  border-radius: 2px;
+}
+
+#health-bar-back {
+  width: 200px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.75);
+  margin-top: 5px;
+  border-radius: 2px;
+}
+
+/* put quest info on the bottom of the player info */
+#quest-info {
+  position: absolute;
+  top: 150px;
+  left: 10px;
 }
 
 #quest-title {
@@ -55,14 +77,16 @@ body {
   transform: translateX(-50%);
   width: 80%;
   height: 100px;
-  background-color: rgba(100, 100, 100, 0.5);
+  background-color: rgba(75, 75, 75, 0.25);
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  border-radius: 10px;
 }
+
 #game-overlay {
   pointer-events: none; /* Allow mouse events to pass through the overlay */
 }
@@ -73,13 +97,14 @@ body {
 
 #hint-text {
   position: fixed;
-  top: 50%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
   font-size: 24px;
   text-align: center;
   z-index: 9999;
+  text-shadow: 0 0 5px black;
 }
 
 #start-button {
@@ -130,4 +155,68 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+}
+
+#game-over {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* game over image will be 100% of the width of the game over screen */
+#game-over img {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+#game-over-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* center the game over text */
+#game-over-overlay > * {
+  margin: 0 auto;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  90% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* show content with a fade in animation */
+#game-over-overlay > *:not(:last-child) {
+  margin-bottom: 25px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* bouton recommencer en noir */
+#game-over-overlay button {
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    animation: fadeIn 4s ease-in-out;
 }

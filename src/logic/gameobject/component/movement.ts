@@ -4,6 +4,7 @@ import Time from "../../time/time";
 import GameObject from "../gameObject";
 import Component, { ComponentType } from "./component";
 import {EventList, EventListT} from "../../util/eventList";
+import CombatComponent from "./combat";
 
 class MovementComponent extends Component {
     private static readonly DASH_TIME: number = Time.getTicks(1.5);
@@ -55,6 +56,12 @@ class MovementComponent extends Component {
     }
 
     public updateMove(input: MovementInput) {
+        const combatComponent = this._parent.findComponent(CombatComponent);
+        if (combatComponent && !combatComponent.canAttackWhileMoving && combatComponent.isAttacking) {
+            this._velocity = Vector2.Zero();
+            return;
+        }
+
         let axis = input.axis;
         if (axis.lengthSquared() > 1) {
             axis.normalize();
@@ -76,6 +83,8 @@ class MovementComponent extends Component {
             
             this._velocity = axis.scale(this._config.dashSpeed);
         } else {
+            input.dash = false;
+
             if (this._dashing || axis.lengthSquared() === 0) {
                 this._velocity = Vector2.Lerp(this._velocity, Vector2.Zero(), (this._dashing ? this._config.dashDeceleration : this._config.deceleration) * Time.TICK_DELTA_TIME);
                 if (this._dashing) {
@@ -116,10 +125,18 @@ class MovementComponent extends Component {
         if (velocity.lengthSquared() > 1) {
             velocity = velocity.clone().normalize();
         }
-        if (velocity.lengthSquared() > 0.001) {
+        if (velocity.lengthSquared() > 0.0005) {
             let direction = Math.atan2(velocity.y, velocity.x);
             this.parent.direction = direction + Math.PI / 2;
         }
+    }
+
+    public reset() {
+        this._velocity = Vector2.Zero();
+        this._dashing = false;
+        this._dashTimer = 0;
+        this.input.axis = Vector2.Zero();
+        this.input.dash = false;
     }
 }
 

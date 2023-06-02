@@ -10,11 +10,14 @@
             },
             "combat": {
                 "attackDelay": 1.5,
+                "attackLoadingTime": 0.25,
+                "canAttackWhileMoving": true,
                 "shootDamage": 25,
                 "shootRadius": 3,
                 "projectileId": 1,
                 "projectileSpeed": 25,
-                "projectileLifetime": 1
+                "projectileLifetime": 1,
+                "audioId": 13
             },
             "movement": {
                 "speed": 7.5,
@@ -40,7 +43,7 @@
                 "attack": {
                     "clip": "Hit",
                     "loop": false,
-                    "speed": 1,
+                    "speed": 3,
                     "alt": []
                 },
                 "die": {
@@ -74,6 +77,8 @@
             },
             "combat": {
                 "attackDelay": 1.5,
+                "attackLoadingTime": 0.25,
+                "canAttackWhileMoving": false,
                 "shootDamage": 40,
                 "shootRadius": 4,
 
@@ -83,7 +88,8 @@
 
                 "alertInRadius": 20,
                 "alertOutRadius": 30,
-                "patrolRadius": 12.5
+                "patrolRadius": 12.5,
+                "audioId": 14
             },
             "movement": {
                 "speed": 9,
@@ -110,10 +116,12 @@
                     "alt": []
                 },
                 "attack": {
-                    "clip": "Pound Attack W Root",
+                    "clip": "Breath Attack",
                     "loop": false,
                     "speed": 1,
-                    "alt": []
+                    "alt": [
+                        "Bite Attack"
+                    ]
                 },
                 "die": {
                     "clip": "Die",
@@ -145,8 +153,10 @@
             },
             "combat": {
                 "attackDelay": 4,
+                "attackLoadingTime": 1.75,
+                "canAttackWhileMoving": false,
                 "shootDamage": 40,
-                "shootRadius": 4,
+                "shootRadius": 8,
 
                 "projectileId": 0,
                 "projectileSpeed": 0,
@@ -154,7 +164,9 @@
 
                 "alertInRadius": 25,
                 "alertOutRadius": 35,
-                "patrolRadius": 12.5
+                "patrolRadius": 12.5,
+
+                "audioId": 12
             },
             "movement": {
                 "speed": 4,
@@ -182,9 +194,8 @@
                 "attack": {
                     "clip": "Hit Ground Attack",
                     "loop": false,
-                    "speed": 1,
+                    "speed": 0.5,
                     "alt": [
-                        "Punch Attack"
                     ]
                 },
                 "die": {
@@ -217,6 +228,8 @@
             },
             "combat": {
                 "attackDelay": 5,
+                "attackLoadingTime": 0.5,
+                "canAttackWhileMoving": false,
                 "shootDamage": 40,
                 "shootRadius": 4,
 
@@ -226,7 +239,9 @@
 
                 "alertInRadius": 25,
                 "alertOutRadius": 35,
-                "patrolRadius": 12.5
+                "patrolRadius": 12.5,
+
+                "audioId": 12
             },
             "movement": {
                 "speed": 4,
@@ -293,17 +308,17 @@
     ],
     "scenes": [
         {
-            "width": 1732,
-            "height": 1768,
+            "width": 3716,
+            "height": 3944,
             "precision": 4,
             "useBakedTilemap": true,
             "models": [
                 {
                     "path": "Terrain_0_0-20230529_-_194720.glb",
                     "position": {
-                        "x": -79.3,
+                        "x": 95.3,
                         "y": 0.0,
-                        "z": -70.3
+                        "z": 38.3000031
                     },
                     "rotation": {
                         "x": 0.0,
@@ -311,7 +326,7 @@
                         "z": 0.0
                     },
                     "scale": {
-                        "x": 1.0,
+                        "x": -1.0,
                         "y": 1.0,
                         "z": 1.0
                     }
@@ -329,13 +344,69 @@
                         "z": 0.0
                     },
                     "scale": {
-                        "x": 1.0,
+                        "x": -1.0,
                         "y": 1.0,
                         "z": 1.0
                     }
                 }
             ],
             "objects": [
+                {
+                    "id": 400005,
+                    "name": "Chest.5",
+                    "position": {
+                        "x": 287.21,
+                        "y": 48.4699936
+                    },
+                    "direction": 2.34921312,
+                    "type": 3,
+                    "params": {
+                        "direction": 2.34921312,
+                        "drops": []
+                    }
+                },
+                {
+                    "id": 400004,
+                    "name": "Chest.4",
+                    "position": {
+                        "x": 296.4,
+                        "y": 319.9
+                    },
+                    "direction": 2.62497449,
+                    "type": 3,
+                    "params": {
+                        "direction": 2.62497449,
+                        "drops": []
+                    }
+                },
+                {
+                    "id": 400003,
+                    "name": "Chest.3",
+                    "position": {
+                        "x": 155.56,
+                        "y": 333.9
+                    },
+                    "direction": 1.57079625,
+                    "type": 3,
+                    "params": {
+                        "direction": 1.57079625,
+                        "drops": []
+                    }
+                },
+                {
+                    "id": 400002,
+                    "name": "Chest.2",
+                    "position": {
+                        "x": -0.449996948,
+                        "y": 191.29
+                    },
+                    "direction": -0.544542432,
+                    "type": 3,
+                    "params": {
+                        "direction": -0.544542432,
+                        "drops": []
+                    }
+                },
                 {
                     "id": 600005,
                     "name": "NPC.5",
@@ -397,7 +468,7 @@
                         "x": 84.22,
                         "y": 82.92999
                     },
-                    "direction": 0.8229945,
+                    "direction": 0.8447392,
                     "type": 5,
                     "params": {
                         "config": 1
@@ -432,6 +503,7 @@
                     "direction": 0.6876505,
                     "type": 3,
                     "params": {
+                        "direction": 0.6876505,
                         "drops": []
                     }
                 },
@@ -696,12 +768,20 @@
             ],
             "points": [
                 {
+                    "id": 9,
+                    "position": {
+                        "x": 203.5,
+                        "y": 184.9
+                    },
+                    "direction": -3.14159274
+                },
+                {
                     "id": 3,
                     "position": {
-                        "x": 202.9,
-                        "y": 189.8
+                        "x": 203.69,
+                        "y": 191.1
                     },
-                    "direction": -1.57079637
+                    "direction": -3.14159274
                 },
                 {
                     "id": 6,
@@ -709,15 +789,15 @@
                         "x": 205.2,
                         "y": 254.21
                     },
-                    "direction": -1.57079637
+                    "direction": -3.14159274
                 },
                 {
                     "id": 4,
                     "position": {
-                        "x": 83.98,
-                        "y": 70.47
+                        "x": 92.8,
+                        "y": 75.9
                     },
-                    "direction": -1.57079637
+                    "direction": 2.27765465
                 },
                 {
                     "id": 7,
@@ -725,7 +805,7 @@
                         "x": 205.2,
                         "y": 248.29
                     },
-                    "direction": -1.57079637
+                    "direction": -3.14159274
                 },
                 {
                     "id": 5,
@@ -733,7 +813,7 @@
                         "x": 94.4,
                         "y": 50.5
                     },
-                    "direction": -1.57079637
+                    "direction": -3.14159274
                 },
                 {
                     "id": 8,
@@ -741,7 +821,7 @@
                         "x": 205.01,
                         "y": 241.22
                     },
-                    "direction": -1.57079637
+                    "direction": -3.14159274
                 },
                 {
                     "id": 2,
@@ -749,7 +829,7 @@
                         "x": 78.9,
                         "y": 154.2
                     },
-                    "direction": -1.57079637
+                    "direction": -3.14159274
                 },
                 {
                     "id": 1,
@@ -757,7 +837,7 @@
                         "x": 84.2,
                         "y": 83.0
                     },
-                    "direction": -1.57079637
+                    "direction": -3.14159274
                 }
             ],
             "id": 1,
@@ -786,8 +866,7 @@
             "monsterIds": [],
             "monsterCount": 0,
             "npcId": 0,
-            "npcFirstDialog": "",
-            "npcGenericDialog": "",
+            "npcDialogOverride": [],
             "npcMovePointIds": []
         },
         {
@@ -810,8 +889,7 @@
             "monsterIds": [],
             "monsterCount": 0,
             "npcId": 0,
-            "npcFirstDialog": "",
-            "npcGenericDialog": "",
+            "npcDialogOverride": [],
             "npcMovePointIds": []
         },
         {
@@ -837,8 +915,7 @@
             "monsterIds": [],
             "monsterCount": 0,
             "npcId": 0,
-            "npcFirstDialog": "",
-            "npcGenericDialog": "",
+            "npcDialogOverride": [],
             "npcMovePointIds": []
         },
         {
@@ -864,8 +941,7 @@
             "monsterIds": [],
             "monsterCount": 0,
             "npcId": 0,
-            "npcFirstDialog": "",
-            "npcGenericDialog": "",
+            "npcDialogOverride": [],
             "npcMovePointIds": []
         },
         {
@@ -888,8 +964,7 @@
             "monsterIds": [ 200001, 200002, 200003 ],
             "monsterCount": 0,
             "npcId": 0,
-            "npcFirstDialog": "",
-            "npcGenericDialog": "",
+            "npcDialogOverride": [],
             "npcMovePointIds": []
         },
         {
@@ -918,8 +993,7 @@
             "monsterIds": [],
             "monsterCount": 0,
             "npcId": 0,
-            "npcFirstDialog": "",
-            "npcGenericDialog": "",
+            "npcDialogOverride": [],
             "npcMovePointIds": []
         },
         {
@@ -944,12 +1018,61 @@
             "monsterIds": [],
             "monsterCount": 0,
             "npcId": 600001,
-            "npcFirstDialog": "",
-            "npcGenericDialog": "",
-            "npcMovePointIds": [ 1, 2, 3, 6, 7 ]
+            "npcDialogOverride": [],
+            "npcMovePointIds": [ 1, 2, 3 ]
         },
         {
             "id": 7,
+            "name": "Intro_FollowToVillage_Cinematic",
+            "sceneId": 1,
+            "dependencyIds": [ 6 ],
+            "groupId": 1,
+            "type": 0,
+            "dialogs": [
+
+            ],
+            "tpPoint": 0,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "Suivez l'homme jusqu'au village",
+
+            "cinematic": "Cinematic_FirstEnterInCity",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 0,
+            "npcDialogOverride": [],
+            "npcMovePointIds": [ ]
+        },
+        {
+            "id": 8,
+            "name": "Intro_FollowToVillage_Part2",
+            "sceneId": 1,
+            "dependencyIds": [ 7 ],
+            "groupId": 1,
+            "type": 5,
+            "dialogs": [
+                { "text": "Bienvenue dans ma ville", "delay": 0 }
+            ],
+            "tpPoint": 9,
+
+            "title": "Introduction - Sauver les Nekoma",
+            "description": "Suivez l'homme jusqu'au village",
+
+            "cinematic": "",
+            "video": "",
+
+            "triggerIds": [ ],
+            "monsterIds": [],
+            "monsterCount": 0,
+            "npcId": 600001,
+            "npcDialogOverride": [],
+            "npcMovePointIds": [ 3, 6, 7 ]
+        },
+        {
+            "id": 9,
             "name": "Intro_NpcTalk",
             "sceneId": 1,
             "dependencyIds": [ 6 ],
@@ -973,12 +1096,11 @@
             "monsterIds": [],
             "monsterCount": 0,
             "npcId": 600001,
-            "npcFirstDialog": "",
-            "npcGenericDialog": "",
+            "npcDialogOverride": [],
             "npcMovePointIds": [ 1, 2, 3, 6, 7 ]
         },
         {
-            "id": 8,
+            "id": 10,
             "name": "Intro_KillMonster_Battle",
             "sceneId": 1,
             "dependencyIds": [ 7 ],
@@ -996,9 +1118,13 @@
             "triggerIds": [ ],
             "monsterIds": [ ],
             "monsterCount": 10,
-            "npcId": 0,
-            "npcFirstDialog": "",
-            "npcGenericDialog": "",
+            "npcId": 600001,
+            "npcDialogOverride": [
+                { "text": "Notre planète court un grand danger, nous devons nous battre pour la sauver !", "delay": 0 },
+                { "text": "Au total, nous avons dénombrer 10 créatures de Astro Corp autours de la ville.", "delay": 0 },
+                { "text": "Vous devrez les trouver assez facilement en cherchant autours de la ville.", "delay": 0 },
+                { "text": "Tuez les tous et revenez me voir.", "delay": 0 }
+            ],
             "npcMovePointIds": []
         }
     ],
@@ -1060,13 +1186,13 @@
             },
             "animation": {
                 "idle": {
-                    "clip": "Idle",
+                    "clip": "Idle_Npc2",
                     "loop": true,
                     "speed": 1,
                     "alt": []
                 },
                 "walk": {
-                    "clip": "",
+                    "clip": "Walk_Npc2",
                     "loop": true,
                     "speed": 1,
                     "alt": []
@@ -1111,7 +1237,7 @@
         },
         {
             "id": 2,
-            "name": "Ambiant_2",
+            "name": "Ambiant_City1",
             "type": 0,
             "location": 1,
             "volume": 0.5,
@@ -1180,6 +1306,46 @@
             "loop": false,
             "audio": "audios/walk_character.mp3",
             "area": []
+        },
+        {
+            "id": 11,
+            "name": "Open_Chest",
+            "type": 3,
+            "location": 0,
+            "volume": 3,
+            "loop": false,
+            "audio": "audios/open_chest.wav",
+            "area": []
+        },
+        {
+            "id": 12,
+            "name": "Golem_Attack",
+            "type": 3,
+            "location": 0,
+            "volume": 1,
+            "loop": false,
+            "audio": "audios/golem_attack.ogg",
+            "area": []
+        },
+        {
+            "id": 13,
+            "name": "Character_Attack",
+            "type": 3,
+            "location": 0,
+            "volume": 1,
+            "loop": false,
+            "audio": "audios/char_attack.mp3",
+            "area": []
+        },
+        {
+            "id": 14,
+            "name": "Wolf_Attack",
+            "type": 3,
+            "location": 0,
+            "volume": 1,
+            "loop": false,
+            "audio": "audios/wolf_attack.wav",
+            "area": []
         }
     ],
     "globals": {
@@ -1224,9 +1390,10 @@
                 "loop": true,
                 "speed": 1,
                 "alt": []
-            }
+            },
+            "audioId": 11
         },
-        "npcStartWaitingPlayerDistance": 15,
-        "npcStartChasingPlayerDistance": 10
+        "npcStartWaitingPlayerDistance": 20,
+        "npcStartChasingPlayerDistance": 15
     }
 }

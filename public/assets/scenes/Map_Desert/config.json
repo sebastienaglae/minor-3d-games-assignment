@@ -1,15 +1,15 @@
 {
-  "width": 1732,
-  "height": 1768,
+  "width": 3716,
+  "height": 3944,
   "precision": 4,
   "useBakedTilemap": true,
   "models": [
     {
       "path": "Terrain_0_0-20230529_-_194720.glb",
       "position": {
-        "x": -79.3,
+        "x": 95.3,
         "y": 0.0,
-        "z": -70.3
+        "z": 38.3000031
       },
       "rotation": {
         "x": 0.0,
@@ -17,7 +17,7 @@
         "z": 0.0
       },
       "scale": {
-        "x": 1.0,
+        "x": -1.0,
         "y": 1.0,
         "z": 1.0
       }
@@ -35,13 +35,109 @@
         "z": 0.0
       },
       "scale": {
-        "x": 1.0,
+        "x": -1.0,
         "y": 1.0,
         "z": 1.0
       }
     }
   ],
   "objects": [
+    {
+      "id": 400005,
+      "name": "Chest.5",
+      "position": {
+        "x": 287.21,
+        "y": 48.4699936
+      },
+      "direction": 2.34921312,
+      "type": 3,
+      "params": {
+        "direction": 2.34921312,
+        "drops": []
+      }
+    },
+    {
+      "id": 400004,
+      "name": "Chest.4",
+      "position": {
+        "x": 296.4,
+        "y": 319.9
+      },
+      "direction": 2.62497449,
+      "type": 3,
+      "params": {
+        "direction": 2.62497449,
+        "drops": []
+      }
+    },
+    {
+      "id": 400003,
+      "name": "Chest.3",
+      "position": {
+        "x": 155.56,
+        "y": 333.9
+      },
+      "direction": 1.57079625,
+      "type": 3,
+      "params": {
+        "direction": 1.57079625,
+        "drops": []
+      }
+    },
+    {
+      "id": 400002,
+      "name": "Chest.2",
+      "position": {
+        "x": -0.449996948,
+        "y": 191.29
+      },
+      "direction": -0.544542432,
+      "type": 3,
+      "params": {
+        "direction": -0.544542432,
+        "drops": []
+      }
+    },
+    {
+      "id": 600005,
+      "name": "NPC.5",
+      "position": {
+        "x": 138.2,
+        "y": 313.5
+      },
+      "direction": -5.58793545E-08,
+      "type": 5,
+      "params": {
+        "config": 2,
+        "patrolPoints": [
+          {
+            "x": 138.2,
+            "y": 313.5
+          },
+          {
+            "x": 208.2,
+            "y": 313.5
+          },
+          {
+            "x": 219.2,
+            "y": 298.5
+          },
+          {
+            "x": 219.2,
+            "y": 253.5
+          },
+          {
+            "x": 208.2,
+            "y": 243.5
+          },
+          {
+            "x": 88.2,
+            "y": 243.5
+          }
+        ],
+        "patrolFreezeTimeAtEnd": 0
+      }
+    },
     {
       "id": 200001,
       "name": "Monster.1",
@@ -63,7 +159,7 @@
         "x": 84.22,
         "y": 82.92999
       },
-      "direction": 0.8229945,
+      "direction": 0.8447392,
       "type": 5,
       "params": {
         "config": 1
@@ -98,6 +194,7 @@
       "direction": 0.6876505,
       "type": 3,
       "params": {
+        "direction": 0.6876505,
         "drops": []
       }
     },
@@ -348,12 +445,12 @@
     },
     {
       "id": 600004,
-      "name": "NPC.3 (1)",
+      "name": "NPC.4",
       "position": {
         "x": 159.3,
         "y": 294.0
       },
-      "direction": 1.57079625,
+      "direction": -1.57079637,
       "type": 5,
       "params": {
         "config": 2
@@ -362,60 +459,76 @@
   ],
   "points": [
     {
+      "id": 9,
+      "position": {
+        "x": 203.5,
+        "y": 184.9
+      },
+      "direction": -3.14159274
+    },
+    {
       "id": 3,
       "position": {
-        "x": 202.9,
-        "y": 189.8
-      }
+        "x": 203.69,
+        "y": 191.1
+      },
+      "direction": -3.14159274
     },
     {
       "id": 6,
       "position": {
         "x": 205.2,
         "y": 254.21
-      }
+      },
+      "direction": -3.14159274
     },
     {
       "id": 4,
       "position": {
-        "x": 83.98,
-        "y": 70.47
-      }
+        "x": 92.8,
+        "y": 75.9
+      },
+      "direction": 2.27765465
     },
     {
       "id": 7,
       "position": {
         "x": 205.2,
         "y": 248.29
-      }
+      },
+      "direction": -3.14159274
     },
     {
       "id": 5,
       "position": {
         "x": 94.4,
         "y": 50.5
-      }
+      },
+      "direction": -3.14159274
     },
     {
       "id": 8,
       "position": {
         "x": 205.01,
         "y": 241.22
-      }
+      },
+      "direction": -3.14159274
     },
     {
       "id": 2,
       "position": {
         "x": 78.9,
         "y": 154.2
-      }
+      },
+      "direction": -3.14159274
     },
     {
       "id": 1,
       "position": {
         "x": 84.2,
         "y": 83.0
-      }
+      },
+      "direction": -3.14159274
     }
   ],
   "id": 0,

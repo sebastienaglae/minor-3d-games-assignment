@@ -6,6 +6,7 @@ import GameObject from "../gameObject";
 import AnimationComponent from "./animation";
 import Component, { ComponentType } from "./component";
 import {EventList, EventListT} from "../../util/eventList";
+import GenericAnimationComponent from "./genericAnimation";
 
 export default class RenderComponent extends Component {
     private _handle: MeshAsyncHandle;
@@ -33,7 +34,7 @@ export default class RenderComponent extends Component {
             this._mesh.scaling = new Vector3(-config.scale, config.scale, -config.scale);
             this._rotationOffsetX = config.rotation * (Math.PI / 180);
             
-            const animationComponent = this.parent.findComponent(AnimationComponent);
+            const animationComponent = this.parent.findComponent(AnimationComponent) ?? this.parent.findComponent(GenericAnimationComponent);
             if (animationComponent) {
                 animationComponent.setGroups(result.animationGroups);
             }

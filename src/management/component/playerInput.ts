@@ -59,17 +59,18 @@ export default class PlayerInput implements ISceneComponent {
         if (movementComponent) {
             const axisX = this.getKeyAxis(PlayerInput.KEY_RIGHT) - this.getKeyAxis(PlayerInput.KEY_LEFT);
             const axisY = this.getKeyAxis(PlayerInput.KEY_FORWARD) - this.getKeyAxis(PlayerInput.KEY_BACKWARD);
+            const dashInput = InputManager.isKeyDown("shift", true);
 
             const input = movementComponent.input;
             input.axis.x = axisX;
             input.axis.y = axisY;
-            input.dash = input.dash || InputManager.isKeyDown("shift", true);
+            input.dash = dashInput;
         }
 
         if (this._attackDirection !== null && !playingCinematic) {
             const combatComponent = this._character.findComponent(CombatComponent);
             if (combatComponent && combatComponent.canAttack) {
-                combatComponent.attack(this._attackDirection);
+                combatComponent.prepareAttack(this._attackDirection);
             }
             this._attackDirection = null;
         }

@@ -1,12 +1,14 @@
 import GameObject, { GameObjectType } from "./gameObject";
 import Level from "../level/level";
-import AnimationComponent from "./component/animation";
 import ChestConfig from "../config/gameobject/chest";
 import RenderComponent from "./component/render";
-import {AbstractMesh, Mesh} from "@babylonjs/core";
+import {AbstractMesh, Mesh, Vector2} from "@babylonjs/core";
 import GenericAnimationComponent from "./component/genericAnimation";
+import {EventList} from "../util/eventList";
 
 export default class Chest extends GameObject {
+    public onOpen: EventList = new EventList();
+
     private _direction: number = 0;
     private _itemIds: number[] = [];
     private _opened: boolean = false;
@@ -34,6 +36,10 @@ export default class Chest extends GameObject {
         this._direction = value;
     }
 
+    public get opened(): boolean {
+        return this._opened;
+    }
+
     public load(data: any): void {
         super.load(data);
         this._direction = data.direction;
@@ -55,14 +61,23 @@ export default class Chest extends GameObject {
             return;
         }
         this._opened = true;
+        this.onOpen.trigger();
         this.updateAnimation();
+    }
+
+    public canInteractWith(gameObject: GameObject): boolean {
+        return !this._opened && gameObject.type === GameObjectType.Character && Vector2.DistanceSquared(this.position, gameObject.position) < 15;
+    }
+
+    public interactWith(gameObject: GameObject): void {
+        this.open();
     }
 
     public updateAnimation(): void {
         const config = this.config as ChestConfig;
         const animationComponent = this.getComponent(GenericAnimationComponent);
         if (this._opened) {
-            animationComponent.play(config.openingAnimation).onAnimationGroupEndObservable.add(() => {
+            animationComponent.play(config.openingAnimation)?.onAnimationGroupEndObservable.add(() => {
                 animationComponent.play(config.openedAnimation);
             });
         } else {

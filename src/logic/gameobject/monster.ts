@@ -15,8 +15,8 @@ export default class Monster extends GameObject {
         this._direction = 0;
 
         this.addComponent(new HitpointComponent(this, config.hitpoint));
-        this.addComponent(new AIMovementComponent(this, config.movement));
         this.addComponent(new MonsterCombatComponent(this, config.combat));
+        this.addComponent(new AIMovementComponent(this, config.movement));
         this.addComponent(new RenderComponent(this, config.render));
         this.addComponent(new AnimationComponent(this, config.animation));
     }

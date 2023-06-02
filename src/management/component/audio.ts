@@ -1,5 +1,5 @@
 import ISceneComponent from "./interface";
-import {Sound} from "@babylonjs/core";
+import {Sound, Vector3} from "@babylonjs/core";
 import AudioConfig, {AudioType} from "../../logic/config/audio";
 import Level from "../../logic/level/level";
 import GameObject, {GameObjectType} from "../../logic/gameobject/gameObject";
@@ -11,6 +11,9 @@ import Trigger from "../../logic/gameobject/trigger";
 import CombatComponent from "../../logic/gameobject/component/combat";
 import MovementComponent from "../../logic/gameobject/component/movement";
 import AIMovementComponent from "../../logic/gameobject/component/aiMovement";
+import Chest from "../../logic/gameobject/chest";
+import ChestConfig from "../../logic/config/gameobject/chest";
+import Time from "../../logic/time/time";
 
 export default class AudioComponent implements ISceneComponent {
     private readonly _level: Level;
@@ -18,6 +21,8 @@ export default class AudioComponent implements ISceneComponent {
 
     private _currentAudioConfig: AudioConfig | null = null;
     private _currentAudio: Sound | null = null;
+
+    private _nextAudioUpdateTime: number = 0;
 
     constructor(scene: Scene, level: Level) {
         this._level = level;
@@ -29,6 +34,8 @@ export default class AudioComponent implements ISceneComponent {
             }, {
                 loop: false,
                 autoplay: false,
+                volume: audioConfig.volume,
+                spatialSound: audioConfig.type === AudioType.EFFECT,
             });
         }
 
@@ -36,13 +43,20 @@ export default class AudioComponent implements ISceneComponent {
     }
 
     update(): void {
+        if (this._nextAudioUpdateTime-- > 0) {
+            return;
+        }
+
+        this._nextAudioUpdateTime = Time.getTicks(0.25);
+
         const currentAudioEnvType = this.getCurrentEnvType();
         const audioConfig = this.pickAudio(currentAudioEnvType);
         if (!audioConfig) {
+            console.log("No audio to play for env type: " + currentAudioEnvType);
             return
         }
 
-        if (this._currentAudioConfig === null || !this._currentAudio.isPlaying || audioConfig.type !== currentAudioEnvType || audioConfig.location !== this._currentAudioConfig.location) {
+        if (this._currentAudioConfig === null || !this._currentAudio.isPlaying || audioConfig.type !== this._currentAudioConfig.type || audioConfig.location !== this._currentAudioConfig.location) {
             if (this._currentAudio) {
                 // fade out then stop
                 this._currentAudio.setVolume(0, 1);
@@ -125,26 +139,25 @@ export default class AudioComponent implements ISceneComponent {
     }
 
     register(gameObject: GameObject): void {
-        const playSoundState: Map<number, PlaySoundState> = new Map<number, PlaySoundState>();
+        const soundMap: Map<number, Sound> = new Map<number, Sound>();
 
         const playSound = (audioId: number) => {
-            let state = playSoundState[audioId];
-            if (!state) {
+            let sound: Sound = soundMap[audioId];
+            if (!sound) {
                 const audioConfig = ConfigTable.getAudio(audioId);
                 if (audioConfig) {
-                    const sound = this._audios.get(audioConfig);
+                    sound = this._audios.get(audioConfig);
                     if (sound) {
-                        playSoundState[audioId] = state = new PlaySoundState(sound);
+                        soundMap[audioId] = sound = sound.clone()
                     }
                 }
             }
-            if (state) {
-                const timeSinceLastSound = Date.now() - state.startTime;
-                if (timeSinceLastSound < 500) {
+            if (sound) {
+                if (sound.isPlaying) {
                     return;
                 }
-                state.sound.play();
-                state.startTime = Date.now();
+                sound.setPosition(new Vector3(gameObject.position.x, 0, gameObject.position.y));
+                sound.play();
             }
         }
 
@@ -152,8 +165,8 @@ export default class AudioComponent implements ISceneComponent {
             gameObject.findComponent(CombatComponent) ??
             gameObject.findComponent(MonsterCombatComponent);
         if (combatComponent) {
-            combatComponent.onAttack.add(() => {
-                // TODO
+            combatComponent.onPrepareAttack.add(() => {
+                playSound(combatComponent.config.audioId);
             });
         }
         const movementComponent =
@@ -167,7 +180,11 @@ export default class AudioComponent implements ISceneComponent {
             });
         }
 
-
+        if (gameObject instanceof Chest) {
+            gameObject.onOpen.add(() => {
+                playSound((gameObject.config as ChestConfig).audioId);
+            });
+        }
     }
 }
 

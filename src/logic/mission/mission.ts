@@ -7,6 +7,7 @@ import Npc from "../gameobject/npc";
 import {Vector2} from "@babylonjs/core";
 import Time from "../time/time";
 import AIMovementComponent from "../gameobject/component/aiMovement";
+import MovementComponent from "../gameobject/component/movement";
 
 export default class Mission {
     private readonly _config: MissionConfig;
@@ -96,13 +97,6 @@ export default class Mission {
             }
         }
 
-        if (this._config.tpPoint != 0) {
-            const tpPoint = level.getPoint(this._config.tpPoint);
-            const player = level.gameObjectManager.player;
-            player.position = tpPoint.position.clone();
-            player.direction = tpPoint.direction;
-        }
-
         if (this._progress >= this._requiredProgress) {
             this.complete();
         }
@@ -110,6 +104,15 @@ export default class Mission {
 
     public start(): void {
         console.log(`Mission ${this._config.id} is started`);
+
+        if (this._config.tpPoint != 0) {
+            const tpPoint = this._level.getPoint(this._config.tpPoint);
+            const player = this._level.gameObjectManager.player;
+
+            player.getComponent(MovementComponent).reset();
+            player.position = tpPoint.position.clone();
+            player.direction = tpPoint.direction;
+        }
 
         if (this._config.type === MissionType.FOLLOW_NPC) {
             this._npc.attachedToMission = true;

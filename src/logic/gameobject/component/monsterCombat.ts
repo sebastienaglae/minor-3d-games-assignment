@@ -26,8 +26,6 @@ export default class MonsterCombatComponent extends CombatComponent {
     private _currentTarget: Nullable<GameObject>;
     private _currentTargetPosition: Vector2;
 
-    private _freezeTime: number;
-
     public constructor(parent: GameObject, config: MonsterCombatConfig = null) {
         super(parent, config);
         this._alertInRadius = config.alertInRadius;
@@ -56,10 +54,6 @@ export default class MonsterCombatComponent extends CombatComponent {
         super.update();
 
         if (!this.parent.alive) {
-            return;
-        }
-
-        if (--this._freezeTime > 0) {
             return;
         }
 
@@ -108,8 +102,7 @@ export default class MonsterCombatComponent extends CombatComponent {
             const direction = to.subtract(from);
             const directionAngle = Math.atan2(direction.y, direction.x);
 
-            this.attack(directionAngle);
-            this._freezeTime = Time.getTicks(1);
+            this.prepareAttack(directionAngle);
         }
     }
 
@@ -171,7 +164,14 @@ export default class MonsterCombatComponent extends CombatComponent {
         if (distance <= 0) {
             return from;
         }
-        const bestPosition = from.add(direction.normalize().scale(distance));
+
+        const randomDirection = direction;
+        randomDirection.x *= Math.random() * 0.2 + 0.9;
+        randomDirection.y *= Math.random() * 0.2 + 0.9;
+        randomDirection.normalize();
+
+        const bestPosition = from.add(randomDirection.scale(distance));
+
         // TODO: search passable position
         return bestPosition;
     }

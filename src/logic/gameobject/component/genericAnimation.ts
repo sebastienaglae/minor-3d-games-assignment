@@ -3,7 +3,7 @@ import {AnimationClipConfig} from "../../config/component/animation";
 import {AnimationGroup} from "@babylonjs/core";
 import GameObject from "../gameObject";
 
-export default class GenericAnimationConfig extends Component {
+export default class GenericAnimationComponent extends Component {
     protected readonly _groups: { [name: string]: AnimationGroup } = {};
 
     constructor(parent: GameObject) {
@@ -14,11 +14,11 @@ export default class GenericAnimationConfig extends Component {
         return ComponentType.GenericAnimation;
     }
 
-    public play(config: AnimationClipConfig): AnimationGroup {
+    public play(config: AnimationClipConfig): AnimationGroup | null {
         const group = this._groups[config.clip];
         if (!group) {
-            console.warn(`Animation group ${name} not found`);
-            return;
+            console.warn(`Animation group ${config.clip} not found`);
+            return null;
         }
 
         group.speedRatio = config.speed;

@@ -27,8 +27,7 @@ export default interface MissionConfig extends Config {
 
     // Params if type === MissionType.TALK_TO_NPC
     npcId: number;
-    npcFirstDialog: string;
-    npcGenericDialog: string;
+    npcDialogOverride: Dialog[];
 
     // Params if type === MissionType.FOLLOW_NPC
     npcMovePointIds: number[];

@@ -7,12 +7,15 @@ import HitpointComponent from "./component/hitpoint";
 import Time from "../time/time";
 
 export default class Projectile extends GameObject {
+    private static readonly UNPASSABLE_TIME_BEFORE_REMOVE = Time.getTicks(0.1);
+
     private _direction: number;
     private _damage: number;
     private _speed: number;
     private _team: number;
     private _radius: number;
     private _lifeTime: number;
+    private _unpassablePositionTime: number;
 
     constructor(config: ProjectileConfig, level: Level) {
         super(config, level);
@@ -52,6 +55,17 @@ export default class Projectile extends GameObject {
         const to = this.position.clone();
         to.x += Math.cos(this._direction) * this._speed * Time.TICK_DELTA_TIME;
         to.y += Math.sin(this._direction) * this._speed * Time.TICK_DELTA_TIME;
+
+        const isPassablePosition = this.level.isPassableTile(this.position);
+        if (!isPassablePosition) {
+            this._unpassablePositionTime++;
+            if (this._unpassablePositionTime >= Projectile.UNPASSABLE_TIME_BEFORE_REMOVE) {
+                this.gameObjectManager.removeObject(this);
+                return;
+            }
+        } else {
+            this._unpassablePositionTime = 0;
+        }
 
         let hasCollision = false;
         const gameObjects = this.gameObjectManager.objects.values();

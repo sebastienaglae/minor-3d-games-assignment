@@ -94,16 +94,16 @@ export class FirstPersonPlayer {
       }
       switch (kbInfo.type) {
         case KeyboardEventTypes.KEYUP:
-          if (kbInfo.event.key === "z") {
+          if (kbInfo.event.key === "z" || kbInfo.event.key === "Z") {
             this._moveForward = false;
           }
-          if (kbInfo.event.key === "s") {
+          if (kbInfo.event.key === "s" || kbInfo.event.key === "S") {
             this._moveBackward = false;
           }
-          if (kbInfo.event.key === "q") {
+          if (kbInfo.event.key === "q" || kbInfo.event.key === "Q") {
             this._moveLeft = false;
           }
-          if (kbInfo.event.key === "d") {
+          if (kbInfo.event.key === "d" || kbInfo.event.key === "D") {
             this._moveRight = false;
           }
           if (kbInfo.event.key === "Shift") {
