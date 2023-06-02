@@ -13,6 +13,7 @@ import {
   Observable,
   KeyboardInfo,
   Observer,
+  Mesh,
 } from "@babylonjs/core";
 import { Utils } from "./utils/Utils";
 import { PlanetManager } from "./PlanetManager";
@@ -84,7 +85,7 @@ export class Spaceship {
     this._sceneFilename = sceneFilename;
     this._scene = scene;
     this._setupCamera();
-    this._maxSpeed = 5 ;
+    this._maxSpeed = 5;
     this._acceleration = 35 / this._scaleSpeed;
     this._deceleration = 1 / this._scaleSpeed;
     this._maxRotationSpeed = 0.05;
@@ -163,7 +164,7 @@ export class Spaceship {
     this._spaceship.isVisible = true;
     this._parentMesh = MeshBuilder.CreateBox(
       "parentMesh",
-      { size: 1 },
+      { size: 5 },
       this._scene
     );
     this._parentMesh.position = new Vector3(150, 150, 150);
@@ -419,30 +420,34 @@ export class Spaceship {
     }
   }
 
-private previousPosition = null;
-private accumulatedDistance = 0;
-private elapsedTime = 0;
-
-private computeSpeed() {
-  const currentPosition = this._parentMesh.position.clone();
-
-  if (this.previousPosition) {
-    const deltaTime = this._scene.getEngine().getDeltaTime() / 1000.0; // Delta time in seconds
-
-    const distance = currentPosition.subtract(this.previousPosition).length();
-    this.accumulatedDistance += distance;
-
-    this.elapsedTime += deltaTime;
-    if (this.elapsedTime >= 1) {
-      const speed = this.accumulatedDistance / this.elapsedTime; // Speed in units per second
-      console.log("Speed:", speed);
-      this.elapsedTime = 0;
-      this.accumulatedDistance = 0;
-    }
+  public getMesh(): AbstractMesh {
+    return this._parentMesh;
   }
 
-  this.previousPosition = currentPosition;
-}
+  private previousPosition = null;
+  private accumulatedDistance = 0;
+  private elapsedTime = 0;
+
+  private computeSpeed() {
+    const currentPosition = this._parentMesh.position.clone();
+
+    if (this.previousPosition) {
+      const deltaTime = this._scene.getEngine().getDeltaTime() / 1000.0; // Delta time in seconds
+
+      const distance = currentPosition.subtract(this.previousPosition).length();
+      this.accumulatedDistance += distance;
+
+      this.elapsedTime += deltaTime;
+      if (this.elapsedTime >= 1) {
+        const speed = this.accumulatedDistance / this.elapsedTime; // Speed in units per second
+        console.log("Speed:", speed);
+        this.elapsedTime = 0;
+        this.accumulatedDistance = 0;
+      }
+    }
+
+    this.previousPosition = currentPosition;
+  }
 
   private _updateEffects() {
     this._trailsSpeed.changeEmitRate(
@@ -490,8 +495,7 @@ private computeSpeed() {
     this._speedCooldown -= this._scene.getEngine().getDeltaTime();
     if (this._speedCooldown <= 0) {
       this._speedKm =
-        ((((-this._speed * 3.6) / this._speedRefresh) * 1)) *
-        this._scaleSpeed;
+        ((-this._speed * 3.6) / this._speedRefresh) * 1 * this._scaleSpeed;
       this._speedCooldown = this._speedRefresh;
     }
   }
@@ -577,6 +581,7 @@ private computeSpeed() {
     this._spaceshipEnabled = false;
     this._lockMove();
     this._destroyEffect();
+    this._parentMesh.position = new Vector3(150, 150, 150);
     this._scene.onKeyboardObservable.remove(this._keyboardObserver);
   }
 

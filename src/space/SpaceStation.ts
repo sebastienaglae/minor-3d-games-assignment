@@ -34,6 +34,10 @@ export class SpaceStation {
     });
   }
 
+  public  getMesh() {
+    return this._spaceStation;
+  }
+  
   private async _setupCollider() {
     var spaceStationColliderResult = await SceneLoader.ImportMeshAsync(
       "",

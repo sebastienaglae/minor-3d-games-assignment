@@ -21,10 +21,12 @@ import { Dialogue } from "../space/ui/Dialogue";
 import ConfigTable from "../logic/config/table";
 import { SpaceStation } from "../space/SpaceStation";
 import * as TWEEN from "tween.js";
+import { Asteroid, AsteroidManager } from "../space/AsteroidManager";
 
 export default class SpaceScene extends Scene {
   private _sun: HemisphericLight;
   private _planets: PlanetManager;
+  private _asteroids: AsteroidManager;
   private _dialogue: Dialogue;
   private _ship: Spaceship;
   private _station: SpaceStation;
@@ -61,6 +63,7 @@ export default class SpaceScene extends Scene {
       this._ship.getCamera(),
       this._station.getCamera(),
     ]);
+    this._createAsteroids();
 
     this.onKeyboardObservable.add((kbInfo) => {
       if (kbInfo.type == KeyboardEventTypes.KEYDOWN) {
@@ -82,7 +85,7 @@ export default class SpaceScene extends Scene {
 
     Dialogue.getInstance().showOnlyDialogues();
 
-    // this.debugLayer.show();
+    this.debugLayer.show();
 
     /*setTimeout(() => {
       this._switchToWorldScene();
@@ -130,6 +133,20 @@ export default class SpaceScene extends Scene {
     this._planets.createMeshes();
   }
 
+  private async _createAsteroids() {
+    this._asteroids = new AsteroidManager(this);
+    await this._asteroids.importMeshesAsync(
+      75,
+      1200,
+      500,
+      this._ship.getMesh()
+    );
+    this._asteroids.bindOnCollide(() => {
+      this._ship.exitSpaceship();
+      this._station.enterStation();
+    });
+  }
+
   private async _createSpaceship() {
     this._ship = new Spaceship(
       "assets/space/obj/",
@@ -171,18 +188,16 @@ export default class SpaceScene extends Scene {
     this._dialogue = Dialogue.getInstance();
     this._dialogue.showOnlyDialogues();
     this._dialogue.isLooping = true;
+    this._dialogue.addText("(Je dois me diriger vers mon vaisseau)", 4500);
     this._dialogue.addText(
-      "(Je dois me diriger vers mon vaisseau)",
-      4500
-    );
-    this._dialogue.addText(
-        "(Il me semble qu'il est au fond de l'aile droite de la station)",
-        5000
+      "(Il me semble qu'il est au fond de l'aile droite de la station)",
+      5000
     );
   }
 
   public update() {
     this._planets.update(this.getEngine().getDeltaTime());
+    this._asteroids.update(this.getEngine().getDeltaTime() / 1000);
     this._dialogue.update(this.getEngine().getDeltaTime());
 
     if (

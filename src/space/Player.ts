@@ -157,7 +157,6 @@ export class FirstPersonPlayer {
   }
 
   public spawn() {
-    this.setupPlayer();
     this.setupControls();
     this._camera.parent = this.playerMesh;
     this.scene.activeCamera = this._camera;
