@@ -3,7 +3,7 @@ import "@babylonjs/inspector";
 
 import { Engine } from "@babylonjs/core/Engines/engine"
 import SpaceScene from './scenes/space';
-import { WebGPUEngine } from '@babylonjs/core';
+import {Database, WebGPUEngine} from '@babylonjs/core';
 
 // const view = document.getElementById("view") as HTMLCanvasElement;
 // const engine = new Engine(view, true);
@@ -25,6 +25,12 @@ async function init() {
   } else {
     engine = new Engine(view, true);
   }
+
+  engine.disableManifestCheck = true;
+  engine.enableOfflineSupport = true;
+  engine.enableTexturesOffline = true;
+
+  Database.IDBStorageEnabled = true;
 
   const scene = new SpaceScene(engine);
   scene.init().then(() => {

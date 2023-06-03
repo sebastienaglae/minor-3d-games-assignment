@@ -9,10 +9,10 @@
                 "regenDelay": 10
             },
             "combat": {
-                "attackDelay": 1.5,
+                "attackDelay": 1,
                 "attackLoadingTime": 0.25,
                 "canAttackWhileMoving": true,
-                "shootDamage": 25,
+                "shootDamage": 20,
                 "shootRadius": 3,
                 "projectileId": 1,
                 "projectileSpeed": 25,
@@ -80,7 +80,7 @@
                 "attackLoadingTime": 0.25,
                 "canAttackWhileMoving": false,
                 "shootDamage": 40,
-                "shootRadius": 4,
+                "shootRadius": 5,
 
                 "projectileId": 0,
                 "projectileSpeed": 0,
@@ -155,8 +155,8 @@
                 "attackDelay": 4,
                 "attackLoadingTime": 1.75,
                 "canAttackWhileMoving": false,
-                "shootDamage": 40,
-                "shootRadius": 8,
+                "shootDamage": 55,
+                "shootRadius": 9.5,
 
                 "projectileId": 0,
                 "projectileSpeed": 0,
@@ -169,7 +169,7 @@
                 "audioId": 12
             },
             "movement": {
-                "speed": 4,
+                "speed": 4.5,
                 "dashSpeed": 45,
                 "acceleration": 15,
                 "deceleration": 10,
@@ -227,10 +227,10 @@
                 "regenDelay": 60
             },
             "combat": {
-                "attackDelay": 5,
+                "attackDelay": 4,
                 "attackLoadingTime": 0.5,
                 "canAttackWhileMoving": false,
-                "shootDamage": 40,
+                "shootDamage": 45,
                 "shootRadius": 6,
 
                 "projectileId": 0,
@@ -390,7 +390,7 @@
                     "type": 3,
                     "params": {
                         "direction": 1.57079625,
-                        "drops": []
+                        "drops": [ 3 ]
                     }
                 },
                 {
@@ -404,7 +404,7 @@
                     "type": 3,
                     "params": {
                         "direction": -0.544542432,
-                        "drops": []
+                        "drops": [ 2 ]
                     }
                 },
                 {
@@ -504,7 +504,7 @@
                     "type": 3,
                     "params": {
                         "direction": 0.6876505,
-                        "drops": []
+                        "drops": [ 1 ]
                     }
                 },
                 {
@@ -1346,6 +1346,32 @@
             "loop": false,
             "audio": "audios/wolf_attack.wav",
             "area": []
+        }
+    ],
+    "items": [
+        {
+            "id": 1,
+            "name": "Nakama History Book",
+            "title": "Nakama History Book",
+            "description": "A book about the history of Nakama",
+            "icon": "images/items/nakama_history_book.png",
+            "category": 3
+        },
+        {
+            "id": 2,
+            "name": "Nakama Artefact",
+            "title": "Nakama Artefact",
+            "description": "An artefact from Nakama",
+            "icon": "images/items/nakama_artefact.png",
+            "category": 3
+        },
+        {
+            "id": 3,
+            "name": "Nakama Food",
+            "title": "Nakama Food",
+            "description": "Popular cake from Nakama",
+            "icon": "images/items/nakama_food.png",
+            "category": 3
         }
     ],
     "globals": {

@@ -55,7 +55,7 @@ export default class CombatComponent extends Component {
         this.parent.direction = direction + Math.PI / 2;
 
         const movementComponent = this._parent.findComponent(MovementComponent);
-        if (movementComponent) {
+        if (movementComponent && !this._config.canAttackWhileMoving) {
             movementComponent.freeze(this._attackLoading);
         }
 

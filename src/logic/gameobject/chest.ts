@@ -63,6 +63,10 @@ export default class Chest extends GameObject {
         this._opened = true;
         this.onOpen.trigger();
         this.updateAnimation();
+
+        for (let itemId of this._itemIds) {
+            this.level.dropItem(itemId, this.position);
+        }
     }
 
     public canInteractWith(gameObject: GameObject): boolean {

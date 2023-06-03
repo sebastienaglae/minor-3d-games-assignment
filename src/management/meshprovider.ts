@@ -14,6 +14,7 @@ export default class MeshProvider {
         this._queue.push(handle);
         return handle;
     }
+
     public executeQueue(): void {
         if (this._queue.length === 0) {
             return;

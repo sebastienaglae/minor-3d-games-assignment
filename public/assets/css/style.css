@@ -277,3 +277,55 @@ body {
   text-align: center;
   animation: fadeIn 4s ease-in-out;
 }
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+#item-collect-container {
+  position: absolute;
+  top: 300px;
+  left: 0;
+  height: 50px;
+  width: 200px;
+  background-color: rgba(50,50,50, 0.3);
+  padding: 10px;
+  animation: slideInFromLeft 1s ease-in-out;
+  display: flex; /* Ajout de la propriété display: flex; */
+  align-items: center; /* Aligner les éléments verticalement au centre */
+  border-radius: 0 10px 10px 0;
+}
+
+#item-collect-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+}
+
+#item-collect-count {
+  position: absolute;
+  top: 42px;
+  left: 32px;
+  margin: 0;
+  color: white;
+}
+
+#item-collect-name {
+  margin-left: 20px;
+  margin-right: 20px;
+  color: white;
+}

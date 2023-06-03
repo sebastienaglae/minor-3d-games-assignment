@@ -16,6 +16,13 @@ export class Dialogue {
   private overlayElement: HTMLDivElement;
   private gameOverElement: HTMLDivElement;
   private gameEndElement: HTMLDivElement;
+
+  private itemCollectContainer: HTMLDivElement;
+  private itemCollectImage: HTMLImageElement;
+  private itemCollectName: HTMLDivElement;
+  private itemCollectQueue: CollectItem[] = [];
+  private itemCollectNextTime: number = 0;
+
   private _isLooping: boolean = false;
 
   constructor() {
@@ -48,6 +55,15 @@ export class Dialogue {
     ) as HTMLDivElement;
     this.gameEndElement = document.getElementById(
         "game-end"
+    ) as HTMLDivElement;
+    this.itemCollectContainer = document.getElementById(
+        "item-collect-container"
+    ) as HTMLDivElement;
+    this.itemCollectImage = document.getElementById(
+        "item-collect-image"
+    ) as HTMLImageElement;
+    this.itemCollectName = document.getElementById(
+        "item-collect-name"
     ) as HTMLDivElement;
   }
 
@@ -83,6 +99,26 @@ export class Dialogue {
       if (this._isLooping) {
         this._texts = [...this._cloneTexts];
         this._textTime = [...this._textTimeClone];
+      }
+    }
+
+    if (this.itemCollectNextTime > 0) {
+      this.itemCollectNextTime -= deltaTime;
+      if (this.itemCollectNextTime <= 1) {
+        this.itemCollectContainer.style.animation = "slideOutToLeft 1s";
+      }
+    }
+
+    if (this.itemCollectNextTime <= 0) {
+      if (this.itemCollectQueue.length > 0) {
+        const itemCollect = this.itemCollectQueue.shift();
+        this.itemCollectImage.src = itemCollect.image;
+        this.itemCollectName.innerText = itemCollect.name;
+        this.itemCollectContainer.style.display = "flex";
+        this.itemCollectContainer.style.animation = "slideInFromLeft 1s";
+        this.itemCollectNextTime = 7;
+      } else {
+        this.itemCollectContainer.style.display = "none";
       }
     }
   }
@@ -202,6 +238,15 @@ export class Dialogue {
   public showGameEnd() {
     this.gameEndElement.style.display = "block";
   }
+
+  public addCollectItem(name: string, image: string) {
+    this.itemCollectQueue.push({ name, image });
+  }
+}
+
+interface CollectItem {
+  name: string;
+  image: string;
 }
 
 interface PlayerInfo {

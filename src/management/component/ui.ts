@@ -38,6 +38,10 @@ export default class UIComponent implements ISceneComponent {
 
         this._level.gameObjectManager.onNewObject.add(this.register.bind(this));
         this._level.gameObjectManager.onRemoveObject.add(this.unregister.bind(this));
+
+        this._level.onDropItem.add(item => {
+           this._ui.addCollectItem(item.config.name, "assets/" + item.config.icon);
+        });
     }
 
     destroy(): void {

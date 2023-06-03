@@ -7,6 +7,7 @@ import SceneConfig from './scene';
 import MissionConfig from "./mission";
 import NpcConfig from "./gameobject/npc";
 import AudioConfig from "./audio";
+import ItemConfig from "./item";
 
 export default class ConfigTable {
     public static get characters(): CharacterConfig[] {
@@ -26,6 +27,9 @@ export default class ConfigTable {
     }
     public static get audios(): AudioConfig[] {
         return configsJson.audios;
+    }
+    public static get items(): ItemConfig[] {
+        return configsJson.items;
     }
 
     public static get globals(): Globals {
@@ -62,5 +66,9 @@ export default class ConfigTable {
 
     public static getMission(id: number): MissionConfig {
         return configsJson.missions.find((mission: MissionConfig) => mission.id === id);
+    }
+
+    public static getItem(id: number): ItemConfig {
+        return configsJson.items.find((item: ItemConfig) => item.id === id);
     }
 }

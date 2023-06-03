@@ -2,14 +2,20 @@ import { Vector2 } from "@babylonjs/core";
 import GameObjectManager from "../gameobject/manager";
 import TileMap, { TileState } from "./tilemap";
 import MissionManager from "../mission/manager";
+import {EventList, EventListT} from "../util/eventList";
+import ConfigTable from "../config/table";
+import Item from "./item";
 
 export default class Level {
+    public onDropItem: EventListT<Item> = new EventListT<Item>();
+
     private readonly _id: number;
     private readonly _missionManager: MissionManager;
     private readonly _gameObjectManager: GameObjectManager;
     private readonly _tileMap: TileMap;
 
     private readonly _points: Map<number, Point> = new Map<number, Point>();
+    private readonly _items: Item[] = [];
 
     constructor(id: number, size: Vector2, resolution: number) {
         this._id = id;
@@ -101,6 +107,12 @@ export default class Level {
     public update() {
         this._gameObjectManager.update();
         this._missionManager.update();
+    }
+
+    public dropItem(itemId: number, position: Vector2) {
+        const item = new Item(ConfigTable.getItem(itemId), 1);
+        this._items.push(item);
+        this.onDropItem.trigger(item);
     }
 }
 
