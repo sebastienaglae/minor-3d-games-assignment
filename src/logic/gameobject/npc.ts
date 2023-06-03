@@ -111,9 +111,9 @@ export default class Npc extends GameObject {
                     const movementComponent = this.getComponent(AIMovementComponent);
                     const distanceSquared = Vector2.DistanceSquared(this.position, player.position);
                     if (distanceSquared >= this._startWaitingDistance * this._startWaitingDistance) {
-                        movementComponent.pause();
+                        movementComponent.freeze(100000);
                     } else if (distanceSquared <= this._endWaitingDistance * this._endWaitingDistance) {
-                        movementComponent.resume();
+                        movementComponent.freeze(0);
                     }
                 }
             }

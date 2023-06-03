@@ -83,7 +83,7 @@ export default class AnimationComponent extends Component {
 
         group.speedRatio = speed * clip.speed;
 
-        if (group === this._currentGroup) {
+        if (group === this._currentGroup && group.isPlaying) {
             return;
         }
 

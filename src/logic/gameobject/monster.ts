@@ -19,6 +19,10 @@ export default class Monster extends GameObject {
         this.addComponent(new AIMovementComponent(this, config.movement));
         this.addComponent(new RenderComponent(this, config.render));
         this.addComponent(new AnimationComponent(this, config.animation));
+
+        this.getComponent(HitpointComponent).onDeath.add(() => {
+            this.level.missionManager.currentMission?.onMonsterDeath(this);
+        });
     }
 
     public get direction(): number {

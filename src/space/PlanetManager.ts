@@ -9,12 +9,12 @@ export class PlanetManager {
     this._scene = scene;
     this._planets = [];
     let mercury = new Planet(
-      "mercury",
+      "Nakama",
       2000 / 4,
       0.0004,
       0.00001,
       4879 * this._scale,
-      new Texture("assets/space/img/planets/2k_mercury.jpg", scene)
+      new Texture("assets/space/img/planets/2k_venus_surface.jpg", scene)
     );
     let venus = new Planet(
       "venus",
@@ -22,7 +22,7 @@ export class PlanetManager {
       0.0035,
       0.00001,
       12104 * this._scale,
-      new Texture("assets/space/img/planets/2k_venus_surface.jpg", scene)
+      new Texture("assets/space/img/planets/2k_mercury.jpg", scene)
     );
     let earth = new Planet(
       "earth",

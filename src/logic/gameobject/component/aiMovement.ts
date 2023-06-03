@@ -6,7 +6,6 @@ import MovementComponent from "./movement";
 export default class AIMovementComponent extends MovementComponent {
     private _path: Vector2[] = [];
     private _pathIndex: number = 0;
-    private _pause: boolean = false;
 
     public moveTo(position: Vector2) {
         if (this.parent.position.equals(position)) {
@@ -41,7 +40,7 @@ export default class AIMovementComponent extends MovementComponent {
             return;
         }
 
-        if (this._pause) {
+        if (--this._freezeTimer > 0) {
             this.onMove.trigger(0);
             return;
         }
@@ -77,18 +76,6 @@ export default class AIMovementComponent extends MovementComponent {
 
     public get type(): ComponentType {
         return ComponentType.MonsterMovement;
-    }
-
-    public pause() {
-        this._pause = true;
-    }
-
-    public resume() {
-        this._pause = false;
-    }
-
-    public get paused() {
-        return this._pause;
     }
 
     public get moving() {

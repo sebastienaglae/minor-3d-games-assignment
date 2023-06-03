@@ -194,4 +194,10 @@ export default class Mission {
 
         return totalKillableMonsters;
     }
+
+    public onMonsterDeath(monster: Monster) {
+        if (this._config.type === MissionType.KILL_ANY_MONSTER) {
+            this.completionEvent();
+        }
+    }
 }

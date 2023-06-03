@@ -3,8 +3,7 @@ import MovementConfig from "../../config/component/movement";
 import Time from "../../time/time";
 import GameObject from "../gameObject";
 import Component, { ComponentType } from "./component";
-import {EventList, EventListT} from "../../util/eventList";
-import CombatComponent from "./combat";
+import {EventListT} from "../../util/eventList";
 
 class MovementComponent extends Component {
     private static readonly DASH_TIME: number = Time.getTicks(1.5);
@@ -15,6 +14,7 @@ class MovementComponent extends Component {
     protected _velocity: Vector2;
     private _dashing: boolean = false;
     private _dashTimer: number = 0;
+    protected _freezeTimer: number = 0;
 
     public input = new MovementInput();
 
@@ -32,6 +32,10 @@ class MovementComponent extends Component {
         return this._dashTimer <= 0;
     }
 
+    public get moving(): boolean {
+        return this._velocity.lengthSquared() > 0;
+    }
+
     public get config(): MovementConfig {
         return this._config;
     }
@@ -40,11 +44,23 @@ class MovementComponent extends Component {
         this._config = value;
     }
 
+    public get frozen(): boolean {
+        return this._freezeTimer > 0;
+    }
+
+    public freeze(time: number) {
+        this._freezeTimer = time;
+    }
+
     public update(): void {
         if (!this.parent.alive) {
             return;
         }
-        
+
+        if (--this._freezeTimer > 0) {
+            return;
+        }
+
         const level = this._parent.level;
         if (level.isPassableTile(this._parent.position) === false) {
             console.warn("Character is not on passable tile");
@@ -56,12 +72,6 @@ class MovementComponent extends Component {
     }
 
     public updateMove(input: MovementInput) {
-        const combatComponent = this._parent.findComponent(CombatComponent);
-        if (combatComponent && !combatComponent.canAttackWhileMoving && combatComponent.isAttacking) {
-            this._velocity = Vector2.Zero();
-            return;
-        }
-
         let axis = input.axis;
         if (axis.lengthSquared() > 1) {
             axis.normalize();

@@ -36,6 +36,10 @@ export default class PathFinder {
     }
 
     public findPath(start: Vector2, end: Vector2): Vector2[] {
+        if (start.equals(end)) {
+            return [start.clone(), end.clone()];
+        }
+
         console.log(`Finding path from ${start} to ${end}`);
         
         const resolution = this._tileMap.resolution;
@@ -44,7 +48,7 @@ export default class PathFinder {
         const subEndX = Math.floor(end.x * resolution / this._downscaleFactor);
         const subEndY = Math.floor(end.y * resolution / this._downscaleFactor);
 
-        const path = Syncfinder.findPath(subStartX, subStartY, subEndX, subEndY, this._grid, true, false, 1000);
+        const path = Syncfinder.findPath(subStartX, subStartY, subEndX, subEndY, this._grid, true, false, 1500);
         if (!path) {
             return [];
         }

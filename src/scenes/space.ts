@@ -85,7 +85,7 @@ export default class SpaceScene extends Scene {
 
     Dialogue.getInstance().showOnlyDialogues();
 
-    this.debugLayer.show();
+    // this.debugLayer.show();
 
     /*setTimeout(() => {
       this._switchToWorldScene();

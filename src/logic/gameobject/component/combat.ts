@@ -7,7 +7,6 @@ import Component, { ComponentType } from "./component";
 import HitpointComponent from "./hitpoint";
 import {EventList} from "../../util/eventList";
 import MovementComponent from "./movement";
-import AIMovementComponent from "./aiMovement";
 
 export default class CombatComponent extends Component {
     public onAttack: EventList = new EventList();
@@ -52,6 +51,13 @@ export default class CombatComponent extends Component {
         console.assert(this.canAttack, "Cannot attack");
         this._attackLoading = Time.getTicks(this._config.attackLoadingTime);
         this._attackDirection = direction;
+
+        this.parent.direction = direction + Math.PI / 2;
+
+        const movementComponent = this._parent.findComponent(MovementComponent);
+        if (movementComponent) {
+            movementComponent.freeze(this._attackLoading);
+        }
 
         this.onPrepareAttack.trigger();
     }
